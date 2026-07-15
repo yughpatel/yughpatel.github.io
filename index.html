@@ -1,212 +1,494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yug Patel - Portfolio</title>
-    <!-- This is the new link to your external stylesheet -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yug Patel · SecOps + Backend · /api/v1</title>
+<meta name="description" content="Portfolio of Yug Patel — backend developer & cybersecurity student at Nirma University. Rendered as live API documentation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">Yug Hiteshkumar Patel</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Hello, I'm Yug Hiteshkumar Patel</h1>
-            <p>Computer Science Engineering Student, Creative Innovator & Sports Enthusiast</p>
-            <a href="#projects" class="cta-button">View My Work</a>
+<!-- Background -->
+<div class="bg-blueprint" aria-hidden="true"></div>
+<div class="bg-grid" id="bgGrid" aria-hidden="true"></div>
+<div class="bg-scan" aria-hidden="true"></div>
+
+<!-- Progress bar -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- Top status bar -->
+<div class="status-bar" id="statusBar">
+  <div class="left">
+    <span><span class="dot"></span>system <span class="ok">operational</span></span>
+    <span class="sep desktop-only">·</span>
+    <span class="desktop-only">yug@dev :: portfolio.v3</span>
+    <span class="sep desktop-only">·</span>
+    <span class="desktop-only">rev: <span id="revHash">a4f9c2</span></span>
+    <span class="sep desktop-only">·</span>
+    <span class="desktop-only">tls: <span style="color:var(--post)">strict</span></span>
+    <span class="sep desktop-only">·</span>
+    <span class="desktop-only">waf: <span style="color:var(--post)">enforced</span></span>
+  </div>
+  <div class="right">
+    <span class="desktop-only">latency <span id="latency">28</span>ms</span>
+    <span class="sep desktop-only">·</span>
+    <span class="clock" id="clock">--:--:--</span>
+  </div>
+</div>
+
+<!-- Mobile toggle -->
+<button class="sb-toggle" id="sbToggle" aria-label="Menu">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+</button>
+
+<div class="app">
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-avatar">Y</div>
+      <div class="sb-brand-text">
+        <div class="sb-name">Yug Patel</div>
+        <div class="sb-handle">sec + backend · @yughpatel</div>
+      </div>
+    </div>
+
+    <div class="sb-meta">
+      <div class="kv"><span class="k">status</span><span class="v ok">available</span></div>
+      <div class="kv"><span class="k">focus</span><span class="v">security · backend</span></div>
+      <div class="kv"><span class="k">clearance</span><span class="v">CTF-ready</span></div>
+      <div class="kv"><span class="k">based</span><span class="v">Ahmedabad</span></div>
+    </div>
+
+    <div>
+      <div class="sb-section-label">endpoints</div>
+      <ul class="sb-nav" id="sbNav">
+        <div class="sb-indicator" id="sbIndicator"></div>
+        <li><a href="#root" data-target="root"><span class="method get">GET</span><span class="path">/</span></a></li>
+        <li><a href="#whoami" data-target="whoami"><span class="method get">GET</span><span class="path">/whoami</span></a></li>
+        <li><a href="#security" data-target="security"><span class="method del">SCAN</span><span class="path">/security</span></a></li>
+        <li><a href="#projects" data-target="projects"><span class="method get">GET</span><span class="path">/projects</span></a></li>
+        <li><a href="#skills" data-target="skills"><span class="method get">GET</span><span class="path">/skills</span></a></li>
+        <li><a href="#experience" data-target="experience"><span class="method get">GET</span><span class="path">/experience</span></a></li>
+        <li><a href="#credentials" data-target="credentials"><span class="method get">GET</span><span class="path">/credentials</span></a></li>
+        <li><a href="#contact" data-target="contact"><span class="method post">POST</span><span class="path">/contact</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sb-footer">
+      <div class="kv"><span>ioc sigs</span><span class="v" style="color:var(--del)">1,247</span></div>
+      <div class="kv"><span>sims done</span><span class="v" style="color:var(--post)">3</span></div>
+      <div class="kv"><span>ctfs played</span><span class="v">actively</span></div>
+      <div class="kv"><span>uptime</span><span class="v" id="uptime">--</span></div>
+      <div class="kv"><span>coffee/day</span><span class="v">∞</span></div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="content">
+
+    <!-- ROOT / HERO -->
+    <section class="endpoint hero" id="root">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tag">portfolio · v1 · <span class="ok" style="color:var(--post)">200 OK</span> · <span style="color:var(--del)">threat model: aware</span></div>
+          <h1 class="hero-name">Yug <span class="em">Patel</span></h1>
+          <p class="hero-role">
+            <span class="sw" style="color:var(--del);background:rgba(255,107,138,0.08);border-color:rgba(255,107,138,0.18)">cybersecurity</span> <span style="color:var(--text-mute)">·</span>
+            <span class="sw">backend</span> <span style="color:var(--text-mute)">·</span>
+            <span class="sw" style="color:var(--post);background:rgba(125,243,174,0.08);border-color:rgba(125,243,174,0.18)">log analysis</span>
+          </p>
+          <p class="hero-tagline">I build systems from the ground up — and I take them apart to understand what breaks. Security lives at both ends.</p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              browse projects
+            </a>
+            <a href="#contact" class="btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+              send message
+            </a>
+          </div>
         </div>
+
+        <!-- Terminal -->
+        <div class="terminal" id="terminal">
+          <div class="term-bar">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+            <span class="term-title">yug@dev :: ~ · zsh</span>
+          </div>
+          <div class="term-body" id="termBody"></div>
+          <div class="term-hint">
+            <span>press <kbd style="font-size:0.65rem;padding:0 4px;border:1px solid var(--border-strong);border-radius:3px;">tab</kbd> to autocomplete</span>
+            <span>reading /portfolio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live-stats strip -->
+      <div class="hero-strip reveal">
+        <div class="strip-cell">
+          <div class="strip-k">primary focus</div>
+          <div class="strip-v" style="color:var(--del)">SecOps</div>
+        </div>
+        <div class="strip-cell">
+          <div class="strip-k">cyber sims</div>
+          <div class="strip-v" data-counter="3"><span class="c">0</span><span class="u">firms</span></div>
+        </div>
+        <div class="strip-cell">
+          <div class="strip-k">attack signatures</div>
+          <div class="strip-v" data-counter="12"><span class="c">0</span><span class="u">+ known</span></div>
+        </div>
+        <div class="strip-cell">
+          <div class="strip-k">shipped tools</div>
+          <div class="strip-v" data-counter="2"><span class="c">0</span><span class="u">security</span></div>
+        </div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-white">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">About Me</h2>
-            <div class="about-content animate-on-scroll">
-                <div class="about-image">🏏</div>
-                <div class="about-text">
-                    <p>Hey there! I'm a BTech Computer Science student at Nirma University who's passionate about turning ideas into reality through code and creativity.</p>
-                    <br>
-                    <p>When I'm not buried in algorithms or debugging code, you'll find me on the cricket field representing Kuwait's National Youth Team, or spiking volleyballs (former school rep!). I also love capturing moments through photography and videography – there's something magical about freezing time in a frame.</p>
-                    <br>
-                    <p>As an integral part of Samarpan, our Gujarati community organization, I get to blend my love for event planning with bringing people together. Whether it's organizing cultural events or building web applications, I'm all about creating connections – both digital and human!</p>
-                </div>
+    <!-- WHOAMI -->
+    <section class="endpoint" id="whoami">
+      <div class="ep-header reveal">
+        <span class="method get">GET</span>
+        <span class="path"><span class="p1">/api/v1</span>/whoami</span>
+        <span class="ep-status">200 OK · 12ms</span>
+      </div>
+      <h2 class="ep-title reveal d1">The person <em>behind</em> the code<span class="accent-dot"></span></h2>
+      <p class="ep-desc reveal d2">Returns the entity making all these commits. Contains bio, focus areas, and background story.</p>
+
+      <div class="two-col">
+        <div class="prose reveal d3">
+          <p><span class="drop">I</span>'m a <strong>Computer Science student at Nirma University</strong> drawn to how systems <em>fail</em> — how data leaks, how APIs get abused, how a single misconfigured header opens the door. Understanding attack surfaces is the same thing as understanding the system, just from the other side.</p>
+          <p>My focus sits at the seam between <strong>backend engineering</strong> and <strong>cybersecurity</strong>: FastAPI and Flask for the systems I build, and <em>log analysis</em>, <em>network threat detection</em>, and <em>ML-driven intrusion detection</em> for the systems I audit. I've completed cyber job simulations with <strong>Tata</strong>, <strong>Mastercard</strong>, and <strong>Deloitte</strong> to sharpen the analyst side.</p>
+          <p>Before university, I represented <strong>Kuwait's U19 national cricket team</strong> and worked as an event photographer. Both taught me to stay composed under pressure and read a situation fast — the exact instincts that make a good incident responder.</p>
+        </div>
+
+        <div class="response reveal d4">
+          <div class="rsp-head">
+            <div class="l">
+              <span style="color:var(--post)">●</span>
+              <span>response.json</span>
             </div>
+            <div class="r">application/json</div>
+          </div>
+          <div class="rsp-body">
+<span class="p">{</span>
+<span class="indent"><span class="k">"name"</span><span class="p">:</span> <span class="s">"Yug Patel"</span><span class="p">,</span></span>
+<span class="indent"><span class="k">"role"</span><span class="p">:</span> <span class="s">"Security · Backend"</span><span class="p">,</span></span>
+<span class="indent"><span class="k">"education"</span><span class="p">: {</span></span>
+<span class="indent" style="margin-left:3em"><span class="k">"institution"</span><span class="p">:</span> <span class="s">"Nirma University"</span><span class="p">,</span></span>
+<span class="indent" style="margin-left:3em"><span class="k">"degree"</span><span class="p">:</span> <span class="s">"BTech CSE"</span><span class="p">,</span></span>
+<span class="indent" style="margin-left:3em"><span class="k">"years"</span><span class="p">:</span> <span class="s">"2025—2029"</span></span>
+<span class="indent"><span class="p">},</span></span>
+<span class="indent"><span class="k">"focus"</span><span class="p">: [</span></span>
+<span class="indent" style="margin-left:3em"><span class="s">"log-analysis"</span><span class="p">,</span> <span class="s">"IDS"</span><span class="p">,</span></span>
+<span class="indent" style="margin-left:3em"><span class="s">"AppSec"</span><span class="p">,</span> <span class="s">"secure APIs"</span></span>
+<span class="indent"><span class="p">],</span></span>
+<span class="indent"><span class="k">"cyber_sims"</span><span class="p">: [</span><span class="s">"Tata"</span><span class="p">,</span> <span class="s">"Mastercard"</span><span class="p">,</span> <span class="s">"Deloitte"</span><span class="p">],</span></span>
+<span class="indent"><span class="k">"origin"</span><span class="p">:</span> <span class="s">"Kuwait"</span><span class="p">,</span></span>
+<span class="indent"><span class="k">"based"</span><span class="p">:</span> <span class="s">"Ahmedabad, India"</span><span class="p">,</span></span>
+<span class="indent"><span class="k">"past_lives"</span><span class="p">: [</span></span>
+<span class="indent" style="margin-left:3em"><span class="s">"U19 cricketer"</span><span class="p">,</span></span>
+<span class="indent" style="margin-left:3em"><span class="s">"event photographer"</span></span>
+<span class="indent"><span class="p">],</span></span>
+<span class="indent"><span class="k">"open_to_work"</span><span class="p">:</span> <span class="b">true</span></span>
+<span class="p">}</span>
+          </div>
         </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-card reveal d1">
+          <div class="info-k">primary focus</div>
+          <div class="info-v" style="color:var(--del)">Cybersecurity <span class="mono" style="color:var(--text-mid)">· AppSec + logs</span></div>
+        </div>
+        <div class="info-card reveal d2">
+          <div class="info-k">secondary</div>
+          <div class="info-v">Backend Engineering <span class="mono">· FastAPI</span></div>
+        </div>
+        <div class="info-card reveal d3">
+          <div class="info-k">currently</div>
+          <div class="info-v">B.Tech CSE <span class="mono">· Nirma University</span></div>
+        </div>
+        <div class="info-card reveal d4">
+          <div class="info-k">cyber sims</div>
+          <div class="info-v">3 completed <span class="mono">· Tata · MC · Deloitte</span></div>
+        </div>
+      </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section-light">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-icon">💻</div>
-                    <h3>Software Development</h3>
-                    <p>Python & MySQL (Got these down!) | Currently diving deep into C, JavaScript and Web Development</p>
-                </div>
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-icon">🏐</div>
-                    <h3>Sports & Leadership</h3>
-                    <p>Cricket (Kuwait National Youth Team) | Volleyball (Former school champ) | Love leading teams both on and off the field!</p>
-                </div>
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-icon">📸</div>
-                    <h3>Creative Arts</h3>
-                    <p>Photography & Videography (capturing life's best moments) | Dancing (yes, I've got moves!) | Storytelling through visuals</p>
-                </div>
-                <div class="skill-card animate-on-scroll">
-                    <div class="skill-icon">🎯</div>
-                    <h3>Event Management</h3>
-                    <p>From idea to execution - I love bringing people together! Community building, project coordination, and making things happen ✨</p>
-                </div>
+    <!-- SECURITY -->
+    <section class="endpoint" id="security">
+      <div class="ep-header reveal">
+        <span class="method del">SCAN</span>
+        <span class="path"><span class="p1">/api/v1</span>/security</span>
+        <span class="ep-status">200 OK · CTF-ready</span>
+      </div>
+      <h2 class="ep-title reveal d1">Read the packet, <em>understand the attack</em><span class="accent-dot"></span></h2>
+      <p class="ep-desc reveal d2">Security isn't a checkbox for me — it's how I read a system. I'm drawn to <code>log analysis</code>, <code>network defense</code>, and using <code>ML</code> to spot the traffic that doesn't belong. Three simulations at real firms, two shipped tools, one deepening interest.</p>
+
+      <div class="two-col">
+        <div>
+          <div class="sec-grid reveal d3">
+            <div class="sec-card" style="--sc-color: var(--del);">
+              <div class="sec-head">
+                <span class="sec-label">log analysis</span>
+                <span class="sec-ref">P/02</span>
+              </div>
+              <div class="sec-title">TraceBack</div>
+              <p class="sec-desc">AI-assisted log analyzer that reads Apache and auth logs, detects brute-force, SQLi, and XSS patterns, and explains them in plain language.</p>
+              <div class="sec-tags">
+                <span class="chip hi">Python</span>
+                <span class="chip hi">Streamlit</span>
+                <span class="chip">Gemini</span>
+              </div>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-family:var(--mono);font-size:0.68rem;color:var(--text-mute);letter-spacing:0.05em;">
+                <span style="color:var(--del)">MITRE:</span> T1110 · T1190 · T1059 &nbsp;<span style="color:var(--text-mute)">·</span>&nbsp; <span style="color:var(--put)">CWE:</span> 89 · 79
+              </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section-white">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card animate-on-scroll">
-                    <div class="project-image">🏏</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Cricket Analytics Platform <span style="color: #f39c12; font-size: 0.8em;">(Work in Progress)</span></h3>
-                        <p class="project-description">Building a stats geek's dream! This platform analyzes cricket performance data to help teams (and me!) make smarter decisions on the field. Python and data viz libraries are my weapons of choice here.</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card animate-on-scroll">
-                    <div class="project-image">👥</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Samarpan Admin Portal <span style="color: #f39c12; font-size: 0.8em;">(Work in Progress)</span></h3>
-                        <p class="project-description">Making community management a breeze! This admin portal helps our Samarpan family organize events, manage members, and keep everyone connected. It's like having a digital community center!</p>
-                        <div class="project-links">
-                            <a href="#" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card animate-on-scroll">
-                    <div class="project-image">💰</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Personal Expense Tracker <span style="color: #27ae60; font-size: 0.8em;">(Version 1.0 Complete)</span></h3>
-                        <p class="project-description">Because budgeting as a student is REAL! 😅 This Python script helps me (and hopefully you) track expenses, set budgets, and actually stick to them. </p>
-                        <div class="project-links">
-                            <a href="https://github.com/yughpatel/Expense-Tracker" target="_blank" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="sec-card" style="--sc-color: var(--get);">
+              <div class="sec-head">
+                <span class="sec-label">network IDS · ML</span>
+                <span class="sec-ref">P/03</span>
+              </div>
+              <div class="sec-title">NetGuard</div>
+              <p class="sec-desc">KNN classifier trained on NSL-KDD to flag anomalous traffic. Tuned across k-values and distance metrics, evaluated on precision/recall + false-positive tolerance.</p>
+              <div class="sec-tags">
+                <span class="chip hi">scikit-learn</span>
+                <span class="chip hi">NSL-KDD</span>
+                <span class="chip">KNN</span>
+              </div>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-family:var(--mono);font-size:0.68rem;color:var(--text-mute);letter-spacing:0.05em;">
+                <span style="color:var(--del)">MITRE:</span> T1046 · T1595 &nbsp;<span style="color:var(--text-mute)">·</span>&nbsp; <span style="color:var(--put)">detects:</span> DoS · Probe · U2R · R2L
+              </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title animate-on-scroll" style="color: white;">Get In Touch</h2>
-                <p class="animate-on-scroll">Got an exciting project in mind? I'm always up for collaborating on something cool that blends tech with creativity. Let's chat and build something awesome together! ✨</p>
-                <div class="contact-info">
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">📧</div>
-                        <a href="mailto:yughpatel2007@gmail.com" class="contact-button">Send Email</a>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">💼</div>
-                        <a href="https://www.linkedin.com/in/yug-patel-0536b3340/" target="_blank" class="contact-button">Visit LinkedIn</a>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">🐙</div>
-                        <a href="https://github.com/yughpatel" target="_blank" class="contact-button">View GitHub</a>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">📱</div>
-                        <a href="https://www.instagram.com/yuginbinary/" target="_blank" class="contact-button">Follow Instagram</a>
-                    </div>
-                </div>
+            <div class="sec-card" style="--sc-color: var(--put);">
+              <div class="sec-head">
+                <span class="sec-label">simulations</span>
+                <span class="sec-ref">3 completed</span>
+              </div>
+              <div class="sec-title">Cyber Job Sims</div>
+              <p class="sec-desc">Real-firm virtual experiences: Tata Cyber Analyst, Mastercard Cybersecurity, Deloitte Australia Cyber — end-to-end reading logs, mapping alerts, and writing incident reports.</p>
+              <div class="sec-tags">
+                <span class="chip hi">Tata</span>
+                <span class="chip hi">Mastercard</span>
+                <span class="chip hi">Deloitte</span>
+              </div>
             </div>
+
+            <div class="sec-card" style="--sc-color: var(--post);">
+              <div class="sec-head">
+                <span class="sec-label">focus areas</span>
+                <span class="sec-ref">next 12 mo</span>
+              </div>
+              <div class="sec-title">Where I'm heading</div>
+              <p class="sec-desc">Application security · web attack surfaces · SIEM tuning · deeper ML for anomaly detection · CTF play. Long-term: hardened backends that fail closed, not open.</p>
+              <div class="sec-tags">
+                <span class="chip">AppSec</span>
+                <span class="chip">SIEM</span>
+                <span class="chip">CTF</span>
+                <span class="chip">Cryptography</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="threat-feed reveal d4" aria-hidden="true">
+          <div class="tf-head">
+            <span>threat_feed · sample output</span>
+            <span class="live-pill">LIVE</span>
+          </div>
+          <div class="tf-body">
+            <div class="tf-list" id="tfList"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Yug Hiteshkumar Patel. All rights reserved.</p>
+    <!-- PROJECTS -->
+    <section class="endpoint" id="projects">
+      <div class="ep-header reveal">
+        <span class="method get">GET</span>
+        <span class="path"><span class="p1">/api/v1</span>/projects</span>
+        <span class="ep-status">200 OK · returned 4</span>
+      </div>
+      <h2 class="ep-title reveal d1">Systems <em>built + audited</em><span class="accent-dot"></span></h2>
+      <p class="ep-desc reveal d2">Security tools first — a log analyzer and an ML intrusion detector — then the backend platforms behind them. Rows tagged <code class="method del" style="background:rgba(255,107,138,0.14);border:1px solid rgba(255,107,138,0.2);color:var(--del);padding:1px 6px">SCAN</code> are the security work. Tap any row for the full write-up.</p>
+
+      <div class="projects-list reveal d3" id="projectsList"></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="endpoint" id="skills">
+      <div class="ep-header reveal">
+        <span class="method get">GET</span>
+        <span class="path"><span class="p1">/api/v1</span>/skills</span>
+        <span class="ep-status">200 OK · grouped</span>
+      </div>
+      <h2 class="ep-title reveal d1">The <em>toolkit</em></h2>
+      <p class="ep-desc reveal d2">Languages, frameworks, and domains I actually use — no proficiency bars, no theater. Just what's on my daily <code>PATH</code>.</p>
+
+      <div class="skills-groups reveal d3" id="skillsGroups"></div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="endpoint" id="experience">
+      <div class="ep-header reveal">
+        <span class="method get">GET</span>
+        <span class="path"><span class="p1">/api/v1</span>/experience</span>
+        <span class="ep-status">200 OK · sorted desc</span>
+      </div>
+      <h2 class="ep-title reveal d1">The <em>changelog</em><span class="accent-dot"></span></h2>
+      <p class="ep-desc reveal d2">Version history of the person, in reverse chronological order. Each entry is one meaningful release.</p>
+
+      <div class="changelog reveal d3" id="changelog"></div>
+    </section>
+
+    <!-- CREDENTIALS -->
+    <section class="endpoint" id="credentials">
+      <div class="ep-header reveal">
+        <span class="method get">GET</span>
+        <span class="path"><span class="p1">/api/v1</span>/credentials</span>
+        <span class="ep-status">200 OK · 10 items</span>
+      </div>
+      <h2 class="ep-title reveal d1">Verified <em>certifications</em></h2>
+      <p class="ep-desc reveal d2">Courses, simulations, and hackathons — verifiable through their respective issuers.</p>
+
+      <div class="creds-table reveal d3">
+        <div class="creds-header">
+          <span>#</span>
+          <span>credential</span>
+          <span>issuer</span>
+          <span style="text-align:right;">date</span>
         </div>
+        <div id="credsBody"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="endpoint" id="contact">
+      <div class="ep-header reveal">
+        <span class="method post">POST</span>
+        <span class="path"><span class="p1">/api/v1</span>/contact</span>
+        <span class="ep-status">202 accepted</span>
+      </div>
+      <h2 class="ep-title reveal d1">Send a <em>message</em><span class="accent-dot"></span></h2>
+      <p class="ep-desc reveal d2">Backend engineering work, security research, an interesting side project — my inbox reads all of them.</p>
+
+      <div class="contact-block">
+        <div class="contact-links reveal d3">
+          <a class="c-link" href="mailto:yughpatel2007@gmail.com" data-m="mail">
+            <span class="m">MAIL</span>
+            <div>
+              <div class="l">Primary email</div>
+              <div class="v">yughpatel2007@gmail.com</div>
+            </div>
+            <span class="arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+            </span>
+          </a>
+          <a class="c-link" href="https://github.com/yughpatel" target="_blank" rel="noopener" data-m="git">
+            <span class="m">GIT</span>
+            <div>
+              <div class="l">GitHub</div>
+              <div class="v">github.com/yughpatel</div>
+            </div>
+            <span class="arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+            </span>
+          </a>
+          <a class="c-link" href="https://linkedin.com/in/yug-patel-0536b3340" target="_blank" rel="noopener" data-m="link">
+            <span class="m">LINK</span>
+            <div>
+              <div class="l">LinkedIn</div>
+              <div class="v">yug-patel-0536b3340</div>
+            </div>
+            <span class="arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="snippet reveal d4">
+          <div class="snippet-head">
+            <span>example.request</span>
+            <span>curl</span>
+          </div>
+          <div class="snippet-body"><span style="color:var(--text-mute)"># fire it off:</span>
+<span style="color:var(--post)">curl</span> <span style="color:var(--put)">-X</span> POST \
+  https<span style="color:var(--json-punct)">://</span>yugpatel.dev<span style="color:var(--json-punct)">/</span>contact \
+  <span style="color:var(--put)">-H</span> <span style="color:var(--json-string)">"Content-Type: application/json"</span> \
+  <span style="color:var(--put)">-d</span> <span style="color:var(--json-string)">'{</span>
+<span style="color:var(--json-string)">    "from": "you@somewhere",</span>
+<span style="color:var(--json-string)">    "topic": "let'\''s build",</span>
+<span style="color:var(--json-string)">    "urgency": "whenever"</span>
+<span style="color:var(--json-string)">  }'</span>
+
+<span style="color:var(--text-mute)"># response:</span>
+<span style="color:var(--get)">HTTP/1.1</span> <span style="color:var(--post)">202 Accepted</span>
+<span style="color:var(--json-punct)">{</span>
+  <span style="color:var(--json-key)">"status"</span>: <span style="color:var(--json-string)">"received"</span>,
+  <span style="color:var(--json-key)">"reply_by"</span>: <span style="color:var(--json-string)">"24h"</span>
+<span style="color:var(--json-punct)">}</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <div>© <span id="year"></span> · <span class="grad">Yug Patel</span></div>
+        <div style="margin-top:6px; color: var(--text-mute)">crafted in vim + inertia · built for <span style="color:var(--post)">/dev/humans</span></div>
+      </div>
+      <div>
+        <div>rev: a4f9c2 · <span style="color:var(--post)">deployed</span></div>
+        <div style="margin-top:6px;">powered by <span style="color:var(--get)">caffeine</span> and stubbornness</div>
+      </div>
     </footer>
+  </main>
+</div>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+<!-- Fixed security console (always visible) -->
+<div class="sec-con" id="secCon" aria-hidden="true">
+  <div class="sc-head">
+    <span class="sc-title">SEC-CON</span>
+    <button class="sc-close" id="scClose" aria-label="Dismiss">×</button>
+  </div>
+  <div class="sc-row"><span>mode</span><span class="v crit">DEFENSIVE</span></div>
+  <div class="sc-row"><span>sigs loaded</span><span class="v"><span id="scSigs">1247</span></span></div>
+  <div class="sc-row"><span>alerts (24h)</span><span class="v warn"><span id="scAlerts">42</span></span></div>
+  <div class="sc-row"><span>blocked</span><span class="v ok"><span id="scBlocked">41</span></span></div>
+  <div class="sc-row"><span>investigating</span><span class="v crit"><span id="scInv">1</span></span></div>
+  <div class="sc-mode">MONITORING · ARMED</div>
+</div>
 
-        // Header background change on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(44, 62, 80, 0.9)';
-                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.1)';
-                header.style.boxShadow = 'none';
-            }
-        });
+<!-- Drawer modal for project detail -->
+<div class="modal-scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="drawer-head-left">
+      <span class="method get">GET</span>
+      <span class="endpoint" id="drawerEndpoint">/projects/</span>
+      <span class="ep-status">200 OK</span>
+    </div>
+    <button class="drawer-close" id="drawerClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add some interactive hover effects
-        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
+<script src="script.js" defer></script>
 </body>
 </html>
