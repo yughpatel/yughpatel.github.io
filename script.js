@@ -98,6 +98,30 @@ const PROJECTS = [
     ],
     link: 'https://github.com/yughpatel/Samarpan',
   },
+  {
+    id: 'transitops',
+    title: 'TransitOps',
+    titleEm: 'Fleet + logistics ops, end-to-end.',
+    period: 'Hackathon Project',
+    status: 'done',
+    statusLabel: 'hackathon · team',
+    method: 'get',
+    desc: 'Team hackathon build — a full-stack platform for fleet deployment, vehicle compliance, driver registries, and logistics management. Built the whole stack under time pressure with a small team.',
+    stack: ['React 18', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Express'],
+    focus: [
+      'React 18 + Vite + TypeScript frontend architecture',
+      'Tailwind CSS for rapid design under time pressure',
+      'Framer Motion for stateful UI transitions',
+      'Node.js + Express backend for fleet + driver APIs',
+      'Modules: fleet deployment, vehicle compliance, driver registries, logistics',
+      'Team collaboration + git flow under hackathon deadlines',
+    ],
+    prose: [
+      'TransitOps was our team\'s hackathon entry — a full-stack operations platform for transport fleets. The scope was intentionally broad: fleet deployment, vehicle compliance tracking, a driver registry, and a logistics management dashboard, all in one system.',
+      'On the frontend we went with React 18 through Vite for fast iteration, TypeScript for team safety, Tailwind for speed, and Framer Motion to keep transitions feeling stateful instead of jumpy. The backend is Node.js + Express with a small set of REST endpoints backing each module.',
+      'The takeaway wasn\'t any single technology — it was learning how to negotiate scope with a team on a clock, split ownership cleanly, and ship something end-to-end without letting perfectionism kill velocity.',
+    ],
+  },
 ];
 
 const SKILLS = [
@@ -119,7 +143,7 @@ const SKILLS = [
   {
     title: 'Frontend',
     color: '#c8a6ff',
-    items: ['React', 'HTML', 'CSS', 'Tailwind CSS', 'Recharts'],
+    items: ['React', 'React 18 + Vite', 'TypeScript', 'HTML', 'CSS', 'Tailwind CSS', 'Framer Motion', 'Recharts'],
   },
   {
     title: 'CS Fundamentals',
@@ -129,7 +153,7 @@ const SKILLS = [
   {
     title: 'Tooling',
     color: '#68d8ff',
-    items: ['Git', 'GitHub', 'Streamlit', 'Google Gemini API', 'Regex', 'scikit-learn'],
+    items: ['Git', 'GitHub', 'Linux', 'Streamlit', 'Google Gemini API', 'JSON-mode Structured Outputs', 'Netlify', 'Vercel', 'Regex', 'scikit-learn'],
   },
 ];
 
@@ -155,7 +179,7 @@ const EXPERIENCE = [
     title: 'Open Source Contributor — GSSoC\'26',
     org: 'GirlScript Summer of Code · Remote',
     date: 'May 2026 → Present',
-    desc: 'Contributing to selected open source repositories — shipping features, sharpening code-review skills, and learning how large codebases actually stay maintainable.',
+    desc: 'Contributed to steam-bell-92/python-mini-project, anurag3407/career-pilot, and PDF-Assistant-RAG (merged JSON logging middleware). Built a Budget Tracker web UI feature and a retro VHS/CRT-style "Scroll Tape" portfolio template feature.',
     live: true,
   },
   {
