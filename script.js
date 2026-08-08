@@ -3,173 +3,151 @@
    ============================================================ */
 const PROJECTS = [
   {
-    id: 'traceback',
-    title: 'TraceBack',
-    titleEm: 'Understand raw logs, in plain English.',
-    period: 'Dec 2025 — Mar 2026',
-    status: 'done',
-    statusLabel: 'shipped · security',
-    method: 'scan',
-    desc: 'AI-assisted web app that reads Apache and authentication logs and explains what happened — brute force attempts, SQL injection, XSS patterns — in plain language a learner can follow.',
-    stack: ['Python', 'Streamlit', 'Google Gemini', 'Regex', 'Pandas'],
+    id: 'netguard',
+    title: 'NetGuard',
+    titleEm: 'ML-based network intrusion detection.',
+    period: 'Mar 2026 — Apr 2026',
+    status: 'live',
+    statusLabel: 'coursework · being refined',
+    method: 'get',
+    desc: 'University coursework project. A K-Nearest Neighbors model that classifies network traffic as "Normal" or "Attack" using the NSL-KDD dataset, based on features such as duration, protocol, and byte count.',
+    stack: ['Python', 'Scikit-learn'],
     focus: [
-      'Log upload + parsing with structured extraction of IPs, timestamps, methods',
-      'Google Gemini-powered explanation layer for suspicious patterns',
-      'Detection heuristics for brute force, SQLi, and XSS signatures',
-      'Risk-scoring output presented as tables, summaries, and charts',
-      'Follow-up chat interface for interactive investigation',
-      'Fully in-memory — no user logs stored',
+      'KNN classifier trained on the NSL-KDD dataset',
+      'Classifies traffic as "Normal" or "Attack"',
+      'Features used: duration, protocol, byte count',
+      'In progress: adding a confusion matrix and full evaluation metrics (accuracy, precision, recall, F1-score) after faculty feedback',
+      'Considering retraining on a larger, more modern dataset such as CIC-IDS2017/2018',
     ],
     prose: [
-      'TraceBack is what I wish existed when I was learning what to actually look for in server logs. Instead of a black-box scanner, it acts like a patient tutor: you upload the logs, it walks you through what looks suspicious, and it explains why it matters.',
-      'Written in Python and served through Streamlit for zero-setup access. The heavy lifting is a mix of regex-based extraction (IPs, timestamps, request paths) and Google Gemini for the narrative "so what actually happened here" layer.',
-      'It detects brute force login attempts, SQL injection signatures, and common XSS patterns — surfaces them with risk scores — and lets you ask follow-up questions in a chat interface. Nothing gets stored: analysis is entirely in-memory.',
+      'NetGuard started as a university coursework project: build a model that can tell normal network traffic apart from attack traffic. I used K-Nearest Neighbors on the NSL-KDD dataset, classifying based on features like connection duration, protocol, and byte count.',
+      'It is still being refined. Faculty feedback pointed out that classification accuracy alone is not a real evaluation, so I am adding a confusion matrix and the full set of metrics — accuracy, precision, recall, and F1-score — to understand where the model actually fails rather than just how often it is right.',
+      'The other open question is the dataset. NSL-KDD is old, and traffic patterns have changed a lot since it was assembled, so I am looking at retraining on something more current like CIC-IDS2017/2018.',
+    ],
+    link: 'https://github.com/yughpatel/ML-Based-Network-Intrusion-Detection-System',
+  },
+  {
+    id: 'traceback',
+    title: 'TraceBack',
+    titleEm: 'The same model, pointed at server logs.',
+    period: 'Dec 2025 — Mar 2026',
+    status: 'done',
+    statusLabel: 'shipped',
+    method: 'get',
+    desc: 'Takes the same KNN model built for NetGuard and applies it to a different problem: server log analysis, flagging entries associated with brute-force attempts, SQL injection, and XSS patterns.',
+    stack: ['Python', 'Scikit-learn', 'Streamlit'],
+    focus: [
+      'Reuses the KNN model from NetGuard — not a separately trained model',
+      'Applied to server log entries instead of raw network traffic',
+      'Flags entries associated with brute-force attempts, SQL injection, and XSS patterns',
+      'Streamlit interface so it can be run without setup',
+      'Built for Google for Startups\' "Prompt to Prototype" program (with Scaler)',
+      'Later extended for the ET GenAI Hackathon, and used as my CS50x final project',
+    ],
+    prose: [
+      'TraceBack is the same KNN model I built for NetGuard, pointed at a different problem. Instead of classifying raw network traffic, it reads server log entries and flags the ones associated with brute-force attempts, SQL injection, and XSS patterns.',
+      'It is worth being clear about this: it is one model reused across two domains, not two independently trained models. The interesting part of the project was working out how to represent log entries as features the existing classifier could actually consume.',
+      'The interface is built with Streamlit so it runs without any setup. It started as my build for Google for Startups\' "Prompt to Prototype" program, run in partnership with Scaler, then got extended for the ET GenAI Hackathon and submitted as my CS50x final project.',
     ],
     link: 'https://github.com/yughpatel/TraceBack',
   },
   {
-    id: 'netguard',
-    title: 'NetGuard',
-    titleEm: 'ML-driven network intrusion detector.',
-    period: 'Mar 2026 — Apr 2026',
-    status: 'done',
-    statusLabel: 'academic · security',
-    method: 'scan',
-    desc: 'A machine learning model that classifies network traffic as Normal or Attack. Trained on the NSL-KDD dataset using K-Nearest Neighbors and evaluated on precision, recall, and detection latency.',
-    stack: ['Python', 'scikit-learn', 'KNN', 'NSL-KDD', 'Pandas', 'NumPy'],
-    focus: [
-      'Preprocessing pipeline for NSL-KDD (encoding, scaling, feature selection)',
-      'K-Nearest Neighbors classifier tuned across k-values and distance metrics',
-      'Feature engineering across protocol, duration, and byte-count traits',
-      'Confusion matrix + precision/recall/F1 analysis',
-      'Trade-off study: accuracy vs. false-positive tolerance vs. inference latency',
-    ],
-    prose: [
-      'NetGuard is my dive into the classical-ML side of network intrusion detection — before jumping to deep learning, I wanted to understand what a well-tuned KNN classifier actually does on real intrusion data.',
-      'Ground truth was the NSL-KDD dataset. I built a proper preprocessing pipeline (categorical encoding, feature scaling, subset selection), tuned k-values and distance metrics, and measured the classic tradeoffs: accuracy vs. false-positive tolerance vs. detection latency — the ones that decide whether an IDS actually ships.',
-      'The project deepened my understanding of ML fundamentals: how to structure data, train responsibly, and evaluate a model rather than trust a black box.',
-    ],
-  },
-  {
     id: 'ledgerlines',
     title: 'LedgerLines',
-    titleEm: 'Personal finance — with auth done right.',
+    titleEm: 'Personal finance tracker, built from scratch.',
     period: 'Jun 2026 — Present',
     status: 'live',
     statusLabel: 'in development',
     method: 'get',
-    desc: 'Full-stack finance tracker built to strengthen backend + security instincts — schema design, JWT auth, request/response validation, and Alembic migrations, all written from scratch rather than a tutorial.',
-    stack: ['FastAPI', 'PostgreSQL', 'SQLAlchemy v2', 'Pydantic v2', 'JWT', 'Alembic', 'React', 'Tailwind CSS', 'Recharts'],
+    desc: 'Full-stack personal finance tracker that lets users log, categorize, and visualize income and expenses. Built to strengthen backend development and security skills — designed and written from scratch rather than following a tutorial.',
+    stack: ['FastAPI', 'PostgreSQL', 'SQLAlchemy v2', 'Pydantic v2', 'JWT Authentication', 'Alembic', 'React', 'Tailwind CSS', 'Recharts'],
     focus: [
-      'Relational schema design (users, transactions, categories, budgets)',
-      'Password hashing + token-based JWT authentication with refresh handling',
-      'Request/response validation via Pydantic — no silent malformed input',
-      'Alembic migrations for iterative, reviewable schema evolution',
-      'React + Tailwind + Recharts spending visualizations',
+      'Relational database schema design',
+      'Secure password handling and token-based authentication',
+      'Clean API design with request/response validation',
+      'Backend: FastAPI, PostgreSQL, SQLAlchemy v2, Pydantic v2, JWT, Alembic',
+      'Frontend: React, Tailwind CSS, Recharts',
     ],
     prose: [
-      'LedgerLines is my hands-on answer to: "if I had to build a real finance app from zero — with auth done properly — what does that actually look like?" Not a tutorial re-run. I designed the schema, drew the API contract, and wrote the auth flow myself.',
-      'The backend is FastAPI + PostgreSQL with SQLAlchemy v2 and Pydantic v2 for type-safe request/response validation. Authentication is JWT-based with hashed passwords and refresh handling. Schema evolves cleanly through Alembic migrations.',
-      'The React frontend uses Tailwind for styling and Recharts to render spending patterns — categorical breakdowns, monthly flows, and category-level trend lines.',
+      'LedgerLines is a full-stack personal finance tracker that lets users log, categorize, and visualize their income and expenses. It is actively in development.',
+      'The reason I am building it is to strengthen my backend development and security skills, which meant designing and writing the system from scratch rather than following a tutorial. The parts I care most about getting right are the relational schema design, secure password handling with token-based authentication, and clean API design with proper request and response validation.',
+      'Backend is FastAPI with PostgreSQL, SQLAlchemy v2, Pydantic v2, JWT authentication, and Alembic for migrations. Frontend is React with Tailwind CSS and Recharts.',
     ],
   },
   {
     id: 'samarpan',
     title: 'Samarpan',
-    titleEm: 'Community platform, digitized.',
+    titleEm: 'Digitizing a community organization.',
     period: 'Dec 2025 — Present',
     status: 'live',
     statusLabel: 'in development',
     method: 'get',
-    desc: 'A web platform for Samarpan Kuwait — replacing paper-based membership forms and manual record keeping with a modular Flask app: online applications, payment integration, and an admin dashboard.',
-    stack: ['Flask', 'Jinja2', 'SQLite', 'HTML', 'CSS', 'JavaScript'],
+    desc: 'Web platform for Samarpan Kuwait, a community organization, to digitize community operations — replacing paper-based membership forms and record-keeping. My contribution is the frontend architecture.',
+    stack: ['HTML', 'CSS', 'JavaScript'],
     focus: [
-      'Modular frontend architecture with reusable components',
-      'Digital membership application system with validation',
-      'Online payment integration for community dues',
-      'Admin dashboard for member + event management',
-      'Session-based authentication and role separation',
-      'Deployable on modest hosting — small footprint by design',
+      'Designed a modular frontend architecture with reusable components',
+      'Organized asset management across the project',
+      'Replaces paper-based membership forms and manual record-keeping',
+      'Backend integration is planned — not yet built',
     ],
     prose: [
-      'Samarpan Kuwait had been running the community — memberships, events, records — on paper forms and manual bookkeeping. This project replaces that with a Flask-based web platform that keeps things simple but modern.',
-      'On the frontend, a modular architecture with reusable components and organized assets. On the backend, Flask with SQLite — small enough to deploy anywhere but structured enough to grow.',
-      'The immediate goal is a digital membership application system with online payment integration, plus an admin dashboard for managing members and events. Currently building the membership flow and preparing backend integration.',
+      'Samarpan Kuwait is a community organization that had been running memberships and record-keeping on paper forms. This project is a web platform to digitize those operations.',
+      'My contribution has been the frontend: designing a modular architecture with reusable components and organizing asset management so the project stays maintainable as more pages get added.',
+      'Backend integration is planned but not yet built, so I would not claim it as something I have implemented.',
     ],
     link: 'https://github.com/yughpatel/Samarpan',
   },
   {
     id: 'transitops',
     title: 'TransitOps',
-    titleEm: 'Fleet + logistics ops, end-to-end.',
+    titleEm: 'Team hackathon build.',
     period: 'Hackathon Project',
     status: 'done',
-    statusLabel: 'hackathon · team',
+    statusLabel: 'team hackathon',
     method: 'get',
-    desc: 'Team hackathon build — a full-stack platform for fleet deployment, vehicle compliance, driver registries, and logistics management. Built the whole stack under time pressure with a small team.',
-    stack: ['React 18', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Express'],
+    desc: 'Built as part of a team hackathon — a full-stack platform for fleet deployment, vehicle compliance, driver registries, and logistics management. This was team work, not a solo project.',
+    stack: ['React 18 (Vite)', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Node.js', 'Express'],
     focus: [
-      'React 18 + Vite + TypeScript frontend architecture',
-      'Tailwind CSS for rapid design under time pressure',
-      'Framer Motion for stateful UI transitions',
-      'Node.js + Express backend for fleet + driver APIs',
-      'Modules: fleet deployment, vehicle compliance, driver registries, logistics',
-      'Team collaboration + git flow under hackathon deadlines',
+      'Team project — built collaboratively during a hackathon',
+      'Fleet deployment, vehicle compliance, driver registries, logistics management',
+      'Frontend: React 18 (Vite), TypeScript, Tailwind CSS, Framer Motion',
+      'Backend: Node.js, Express',
     ],
     prose: [
-      'TransitOps was our team\'s hackathon entry — a full-stack operations platform for transport fleets. The scope was intentionally broad: fleet deployment, vehicle compliance tracking, a driver registry, and a logistics management dashboard, all in one system.',
-      'On the frontend we went with React 18 through Vite for fast iteration, TypeScript for team safety, Tailwind for speed, and Framer Motion to keep transitions feeling stateful instead of jumpy. The backend is Node.js + Express with a small set of REST endpoints backing each module.',
-      'The takeaway wasn\'t any single technology — it was learning how to negotiate scope with a team on a clock, split ownership cleanly, and ship something end-to-end without letting perfectionism kill velocity.',
+      'TransitOps was built as part of a team hackathon. It is a full-stack platform covering fleet deployment, vehicle compliance, driver registries, and logistics management.',
+      'This was team work rather than a solo build, so the scope reflects what several people could put together in a hackathon window rather than what I wrote on my own.',
+      'The frontend uses React 18 through Vite with TypeScript, Tailwind CSS, and Framer Motion. The backend is Node.js with Express.',
     ],
   },
 ];
 
 const SKILLS = [
   {
-    title: 'Security',
-    color: '#ff6b8a',
-    items: ['Cybersecurity Fundamentals', 'Log Analysis', 'Network Threat Detection', 'ML for IDS', 'SQL Injection Detection', 'XSS / Brute-force Recognition', 'Incident Reasoning', 'CTF / Cyber Job Sims'],
-  },
-  {
-    title: 'Backend',
-    color: '#7df3ae',
-    items: ['FastAPI', 'Flask', 'SQLAlchemy', 'PostgreSQL', 'SQLite', 'JWT', 'Pydantic', 'Alembic'],
-  },
-  {
-    title: 'Languages',
+    title: 'Languages & Frameworks',
     color: '#68b1ff',
-    items: ['Python', 'JavaScript', 'C'],
+    items: ['Python', 'JavaScript', 'HTML/CSS'],
   },
   {
-    title: 'Frontend',
+    title: 'Backend & Data',
+    color: '#7df3ae',
+    items: ['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'SQLite', 'JWT Authentication', 'Pydantic'],
+  },
+  {
+    title: 'AI & APIs',
     color: '#c8a6ff',
-    items: ['React', 'React 18 + Vite', 'TypeScript', 'HTML', 'CSS', 'Tailwind CSS', 'Framer Motion', 'Recharts'],
+    items: ['Prompt Engineering'],
   },
   {
-    title: 'CS Fundamentals',
-    color: '#ffb454',
-    items: ['Data Structures', 'Programming Fundamentals', 'Web Development', 'Computer Networks'],
-  },
-  {
-    title: 'Tooling',
+    title: 'Tools & Platforms',
     color: '#68d8ff',
-    items: ['Git', 'GitHub', 'Linux', 'Streamlit', 'Google Gemini API', 'JSON-mode Structured Outputs', 'Netlify', 'Vercel', 'Regex', 'scikit-learn'],
+    items: ['Git', 'GitHub', 'Linux', 'Netlify', 'Vercel'],
   },
-];
-
-const THREAT_FEED = [
-  { ts: '12:04:22', sig: 'SSH-BRUTE',      payload: '203.0.113.44 → root · 41 tries in 60s',      sev: 'hi',  verd: 'BLOCKED',  cls: 'blocked' },
-  { ts: '12:04:38', sig: 'SQLi',           payload: "POST /login  ' OR 1=1 -- ",                  sev: 'hi',  verd: 'BLOCKED',  cls: 'blocked' },
-  { ts: '12:05:11', sig: 'XSS',            payload: "<script>fetch('/steal')<\/script>", sev: 'hi',  verd: 'BLOCKED',  cls: 'blocked' },
-  { ts: '12:05:47', sig: 'PORT-SCAN',      payload: '198.51.100.9 → 22,80,443,3306,5432',         sev: 'mid', verd: 'FLAGGED',  cls: 'flagged' },
-  { ts: '12:06:03', sig: 'AUTH-ANOMALY',   payload: 'user=admin geo=NG → user country IN',        sev: 'mid', verd: 'FLAGGED',  cls: 'flagged' },
-  { ts: '12:06:29', sig: 'LFI-ATTEMPT',    payload: 'GET /../../../../etc/passwd',                sev: 'hi',  verd: 'BLOCKED',  cls: 'blocked' },
-  { ts: '12:07:00', sig: 'RATE-LIMIT',     payload: '104.28.x.x  /api/*  180 rpm',                sev: 'lo',  verd: 'THROTTLED',cls: 'flagged' },
-  { ts: '12:07:34', sig: 'JWT-INVALID',    payload: 'expired token · refresh required',           sev: 'lo',  verd: '401',      cls: 'blocked' },
-  { ts: '12:08:02', sig: 'CVE-2024-XXXX',  payload: 'user-agent matches Log4Shell probe',         sev: 'hi',  verd: 'BLOCKED',  cls: 'blocked' },
-  { ts: '12:08:41', sig: 'RECON',          payload: '/wp-admin, /phpmyadmin, /.env',              sev: 'mid', verd: 'FLAGGED',  cls: 'flagged' },
-  { ts: '12:09:12', sig: 'TLS-DOWNGRADE',  payload: 'TLSv1.0 attempt → refused',                  sev: 'lo',  verd: 'REFUSED',  cls: 'blocked' },
-  { ts: '12:09:55', sig: 'ALL-CLEAR',      payload: '5m window · no critical alerts',             sev: 'ok',  verd: 'OK',       cls: 'blocked' },
+  {
+    title: 'Foundations',
+    color: '#ffb454',
+    items: ['Networking Fundamentals', 'Cybersecurity Fundamentals'],
+    note: 'Cybersecurity is an interest area I am building toward — not yet demonstrated professional expertise.',
+  },
 ];
 
 const EXPERIENCE = [
@@ -179,16 +157,16 @@ const EXPERIENCE = [
     title: 'Open Source Contributor — GSSoC\'26',
     org: 'GirlScript Summer of Code · Remote',
     date: 'May 2026 → Present',
-    desc: 'Contributed to steam-bell-92/python-mini-project, anurag3407/career-pilot, and PDF-Assistant-RAG (merged JSON logging middleware). Built a Budget Tracker web UI feature and a retro VHS/CRT-style "Scroll Tape" portfolio template feature.',
+    desc: 'Six merged pull requests across four repositories — mostly bug fixes, plus one feature integration. Integrated a Budget Tracker into an existing project catalog and fixed the related modal rendering and mobile filter bugs (python-mini-project). Added structured JSON logging middleware to a FastAPI backend (PDF-Assistant-RAG).',
     live: true,
   },
   {
     ver: 'v2025.07',
     type: 'education',
-    title: 'B.Tech, Computer Science',
+    title: 'B.Tech, Computer Science & Engineering',
     org: 'Nirma University · Ahmedabad',
-    date: 'Jul 2025 → Aug 2029',
-    desc: 'Coursework spanning DSA, DBMS, networks, OS, and cryptography — paired with a personal track focused on backend engineering and security.',
+    date: '2025 → 2029 · currently 3rd semester',
+    desc: 'Currently in my third semester. Alongside coursework I work on backend projects to get practical experience with things a syllabus does not cover in depth — schema design, authentication, and API structure.',
   },
   {
     ver: 'v2023.05',
@@ -217,16 +195,11 @@ const EXPERIENCE = [
 ];
 
 const CREDENTIALS = [
-  { title: 'CS50x: Introduction to Computer Science',                 org: 'Harvard · CS50',                  date: 'Jan 2026' },
-  { title: 'Hero Campus Challenge Season 10',                         org: 'Unstop',                          date: 'Feb 2026' },
-  { title: 'Certificate of Ingenious Hackathon 7.0',                  org: 'Unstop',                          date: 'Jan 2026' },
-  { title: 'Startup School: Prompt to Prototype',                     org: 'Google for Startups · Scaler',    date: 'Dec 2025' },
-  { title: 'Generative AI Foundations — Microsoft',                   org: 'upGrad',                          date: 'Oct 2025' },
-  { title: 'Tata Cyber Analyst Job Simulation',                       org: 'Forage',                          date: 'Oct 2025' },
-  { title: 'Mastercard Cybersecurity Job Simulation',                 org: 'Forage',                          date: 'Aug 2025' },
-  { title: 'Deloitte Australia — Cyber Job Simulation',               org: 'Forage',                          date: 'Jun 2025' },
-  { title: 'Programming with Python Certification Course',            org: 'Internshala Trainings',           date: 'Jun 2025' },
-  { title: 'Coding Essentials — Learn Logic Building',                org: 'Scaler',                          date: 'Jun 2025' },
+  { title: 'CS50x: Introduction to Computer Science',            org: 'Harvard University',        date: 'Jan 2026' },
+  { title: 'Startup School: Prompt to Prototype',                org: 'Google for Startups',       date: 'Nov–Dec 2025' },
+  { title: 'Generative AI Foundations Certificate',              org: 'Microsoft, via UpGrad',     date: 'Oct 2025' },
+  { title: 'Programming with Python Certification',              org: 'Internshala Trainings',     date: 'Jun 2025' },
+  { title: 'Coding Essentials: Logic Building for Beginners',    org: 'Scaler Topics',             date: 'Jun 2025' },
 ];
 
 /* ============================================================
@@ -234,39 +207,32 @@ const CREDENTIALS = [
    ============================================================ */
 const TERM_STEPS = [
   { t: 'prompt', text: '$ ', delay: 40 },
-  { t: 'cmd',    text: 'traceback --scan /var/log/auth.log\n', delay: 22 },
+  { t: 'cmd',    text: 'uvicorn ledgerlines.main:app --reload\n', delay: 22 },
   { t: 'output', text: '\n', delay: 60 },
-  { t: 'output', text: '<c>[traceback] parsing 1,247 log entries...</c>\n', delay: 260 },
-  { t: 'output', text: '<c>[traceback] extracting IPs · timestamps · UAs</c>\n', delay: 220 },
-  { t: 'output', text: '<c>[traceback] correlating against IOC list...</c>\n', delay: 220 },
-  { t: 'output', text: '\n', delay: 60 },
-  { t: 'output', text: '<alert>[!]</alert> <s>brute-force</s>    42 attempts · 3 unique IPs\n', delay: 260 },
-  { t: 'output', text: '<alert>[!]</alert> <s>SQLi pattern</s>   2× on /login endpoint\n', delay: 220 },
-  { t: 'output', text: '<alert>[!]</alert> <s>XSS payload</s>    attempted <p>(</p>WAF blocked<p>)</p>\n', delay: 220 },
-  { t: 'output', text: '<alert>[!]</alert> <s>LFI probe</s>      GET <p>/../../etc/passwd</p>\n', delay: 220 },
-  { t: 'output', text: '<c>[traceback] mapping to MITRE ATT&amp;CK...</c>\n', delay: 220 },
-  { t: 'output', text: '<ok>[ok]</ok> risk_score<p>:</p> <n>7.2</n>/10 — <s>investigate</s>\n', delay: 220 },
+  { t: 'output', text: '<c>INFO:     Will watch for changes in these directories</c>\n', delay: 200 },
+  { t: 'output', text: '<c>INFO:     Uvicorn running on</c> <s>http://127.0.0.1:8000</s>\n', delay: 200 },
+  { t: 'output', text: '<c>INFO:     Started reloader process</c>\n', delay: 200 },
+  { t: 'output', text: '<ok>INFO:</ok>     Application startup complete.\n', delay: 260 },
   { t: 'output', text: '\n', delay: 400 },
   { t: 'prompt', text: '$ ', delay: 220 },
-  { t: 'cmd',    text: 'nmap -sV target.internal | head -6\n', delay: 22 },
+  { t: 'cmd',    text: 'alembic upgrade head\n', delay: 22 },
   { t: 'output', text: '\n', delay: 60 },
-  { t: 'output', text: '<c>Starting Nmap 7.94 · scan initiated</c>\n', delay: 220 },
-  { t: 'output', text: 'PORT     STATE     SERVICE\n', delay: 40 },
-  { t: 'output', text: '<n>22</n>/tcp   open      <s>ssh</s>       OpenSSH 9.6\n', delay: 60 },
-  { t: 'output', text: '<n>80</n>/tcp   open      <s>http</s>      nginx 1.24\n', delay: 60 },
-  { t: 'output', text: '<n>443</n>/tcp  open      <s>https</s>     nginx 1.24 · <ok>TLS 1.3</ok>\n', delay: 60 },
-  { t: 'output', text: '<n>5432</n>/tcp <alert>filtered</alert> <s>postgres</s>  <c>· good.</c>\n', delay: 60 },
+  { t: 'output', text: '<c>INFO  [alembic.runtime.migration] Context impl PostgresqlImpl</c>\n', delay: 200 },
+  { t: 'output', text: '<c>INFO  [alembic.runtime.migration] Running upgrade</c>\n', delay: 200 },
+  { t: 'output', text: '        <s>a1f4c2</s> → <s>b7d9e0</s>, add categories table\n', delay: 200 },
+  { t: 'output', text: '<ok>[ok]</ok> schema up to date\n', delay: 260 },
   { t: 'output', text: '\n', delay: 400 },
   { t: 'prompt', text: '$ ', delay: 220 },
-  { t: 'cmd',    text: 'curl -sL yugpatel.dev/api/v1/whoami | jq\n', delay: 22 },
+  { t: 'cmd',    text: 'curl -s localhost:8000/whoami | jq\n', delay: 22 },
   { t: 'output', text: '\n', delay: 60 },
   { t: 'output', text: 'HTTP/1.1 <ok>200 OK</ok>\n', delay: 12 },
   { t: 'output', text: '<p>{</p>\n', delay: 12 },
   { t: 'output', text: '  <k>"name"</k><p>:</p> <s>"Yug Patel"</s><p>,</p>\n', delay: 12 },
-  { t: 'output', text: '  <k>"role"</k><p>:</p> <s>"Security · Backend"</s><p>,</p>\n', delay: 12 },
-  { t: 'output', text: '  <k>"focus"</k><p>: [</p><s>"log-analysis"</s><p>,</p> <s>"IDS"</s><p>,</p> <s>"AppSec"</s><p>],</p>\n', delay: 12 },
+  { t: 'output', text: '  <k>"role"</k><p>:</p> <s>"CS student · backend"</s><p>,</p>\n', delay: 12 },
   { t: 'output', text: '  <k>"school"</k><p>:</p> <s>"Nirma University"</s><p>,</p>\n', delay: 12 },
-  { t: 'output', text: '  <k>"sims"</k><p>: [</p><s>"Tata"</s><p>,</p> <s>"Mastercard"</s><p>,</p> <s>"Deloitte"</s><p>],</p>\n', delay: 12 },
+  { t: 'output', text: '  <k>"semester"</k><p>:</p> <n>3</n><p>,</p>\n', delay: 12 },
+  { t: 'output', text: '  <k>"building"</k><p>: [</p><s>"APIs"</s><p>,</p> <s>"schemas"</s><p>,</p> <s>"auth"</s><p>],</p>\n', delay: 12 },
+  { t: 'output', text: '  <k>"learning"</k><p>:</p> <s>"cybersecurity"</s><p>,</p>\n', delay: 12 },
   { t: 'output', text: '  <k>"available"</k><p>:</p> <b>true</b>\n', delay: 20 },
   { t: 'output', text: '<p>}</p>\n', delay: 12 },
   { t: 'output', text: '\n', delay: 500 },
@@ -357,13 +323,11 @@ function renderProjects() {
     const row = document.createElement('div');
     row.className = 'project-row';
     row.dataset.id = p.id;
-    const methodClass = p.method === 'scan' ? 'del' : 'get';
-    const methodLabel = p.method === 'scan' ? 'SCAN' : 'GET';
     row.innerHTML = `
       <div class="project-num">P/${num}</div>
       <div class="project-main">
         <div class="project-meta">
-          <span class="method ${methodClass}">${methodLabel}</span>
+          <span class="method get">GET</span>
           <span class="endpoint">/projects/${p.id}</span>
           <span class="status ${p.status}">${p.statusLabel}</span>
         </div>
@@ -400,27 +364,10 @@ function renderSkills() {
       <div class="sg-items">
         ${g.items.map(it => `<span class="sg-item">${it}</span>`).join('')}
       </div>
+      ${g.note ? `<p class="sg-note">${g.note}</p>` : ''}
     `;
     wrap.appendChild(card);
   });
-}
-
-/* ============================================================
-   THREAT FEED RENDER
-   ============================================================ */
-function renderThreatFeed() {
-  const list = document.getElementById('tfList');
-  if (!list) return;
-  const html = THREAT_FEED.map(t => `
-    <div class="tf-item sev-${t.sev} ${t.cls}">
-      <span class="ts">${t.ts}</span>
-      <span class="sig">${t.sig}</span>
-      <span class="payload">${t.payload}</span>
-      <span class="verd">${t.verd}</span>
-    </div>
-  `).join('');
-  // Duplicate the content so CSS translateY(-50%) loops seamlessly
-  list.innerHTML = html + html;
 }
 
 /* ============================================================
@@ -473,10 +420,7 @@ function openDrawer(p) {
   const body = document.getElementById('drawerBody');
   document.getElementById('drawerEndpoint').textContent = `/projects/${p.id}`;
   const headMethod = document.querySelector('.drawer-head-left .method');
-  if (headMethod) {
-    if (p.method === 'scan') { headMethod.className = 'method del'; headMethod.textContent = 'SCAN'; }
-    else                      { headMethod.className = 'method get'; headMethod.textContent = 'GET'; }
-  }
+  if (headMethod) { headMethod.className = 'method get'; headMethod.textContent = 'GET'; }
   body.innerHTML = `
     <h3 class="drawer-title">${p.title} <em>— ${p.titleEm}</em></h3>
     <div class="drawer-sub">
@@ -629,50 +573,21 @@ function initStatus() {
   tick();
   setInterval(tick, 1000);
 
-  // Fake latency jitter (aesthetic only)
-  const lat = document.getElementById('latency');
-  setInterval(() => {
-    lat.textContent = String(22 + Math.floor(Math.random() * 14));
-  }, 2400);
-
-  // Uptime — since some fixed origin date
+  // Days since starting at Nirma — a real, checkable number
   const origin = new Date('2025-07-01T00:00:00Z').getTime();
   const upEl = document.getElementById('uptime');
-  function upTick() {
-    const days = Math.floor((Date.now() - origin) / 86400000);
-    upEl.textContent = days + 'd';
+  if (upEl) {
+    function upTick() {
+      const days = Math.floor((Date.now() - origin) / 86400000);
+      upEl.textContent = days + 'd';
+    }
+    upTick();
+    setInterval(upTick, 60000);
   }
-  upTick();
-  setInterval(upTick, 60000);
 
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // SEC-CON widget (fake but coherent security-ops jitter)
-  const scSigs = document.getElementById('scSigs');
-  const scAlerts = document.getElementById('scAlerts');
-  const scBlocked = document.getElementById('scBlocked');
-  const scInv = document.getElementById('scInv');
-  let sigs = 1247;
-  let alerts = 42;
-  let blocked = 41;
-  setInterval(() => {
-    // Sigs slowly grow (feed updates)
-    if (Math.random() < 0.35) { sigs += 1; scSigs.textContent = sigs.toLocaleString(); }
-    // Occasionally new alert lands + resolves
-    if (Math.random() < 0.22) {
-      alerts += 1;
-      blocked += Math.random() < 0.85 ? 1 : 0;
-      scAlerts.textContent = alerts;
-      scBlocked.textContent = blocked;
-      scInv.textContent = Math.max(1, alerts - blocked);
-    }
-  }, 3200);
-
-  const secCon = document.getElementById('secCon');
-  document.getElementById('scClose').addEventListener('click', () => {
-    secCon.classList.add('hide');
-  });
 }
 
 /* ============================================================
@@ -681,7 +596,6 @@ function initStatus() {
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSkills();
-  renderThreatFeed();
   renderExperience();
   renderCreds();
   initNav();
