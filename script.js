@@ -184,14 +184,6 @@ const EXPERIENCE = [
     date: 'Nov 2020 → Nov 2025',
     desc: 'Played U19 cricket for Kuwait for roughly five years at national level. Started as a bowler, grew into a more versatile player, and batted when the team needed it. The tours taught discipline, tactical awareness, and the ability to perform under pressure — directly transferable to technical work.',
   },
-  {
-    ver: 'v2016.12',
-    type: 'community',
-    title: 'Photographer & Volunteer',
-    org: 'Samarpan (Gujarati Association Kuwait)',
-    date: 'Dec 2016 → Present',
-    desc: 'Long-running community involvement — event photography and volunteering. The Samarpan platform I\'m building now is a direct continuation of that relationship.',
-  },
 ];
 
 const CREDENTIALS = [
@@ -564,11 +556,23 @@ function initReveal() {
    MISC (clock, uptime, latency)
    ============================================================ */
 function initStatus() {
+  // My local time, not the viewer's — pairs with the "Ahmedabad, India" label
+  // beside it. Formatted via Intl so it stays correct from any timezone.
+  let fmt = null;
+  try {
+    fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hourCycle: 'h23',
+    });
+  } catch (e) { /* fall back to viewer local time below */ }
+
   function tick() {
     const d = new Date();
     const pad = n => String(n).padStart(2, '0');
-    document.getElementById('clock').textContent =
-      pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) + ':' + pad(d.getUTCSeconds()) + ' UTC';
+    document.getElementById('clock').textContent = fmt
+      ? fmt.format(d) + ' IST'
+      : pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
   }
   tick();
   setInterval(tick, 1000);

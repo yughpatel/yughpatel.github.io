@@ -11,7 +11,7 @@
   --border-strong:   rgba(122, 141, 174, 0.32);
   --text:            #e8ecf5;
   --text-mid:        #a4adc0;
-  --text-mute:       #6a7590;
+  --text-mute:       #7682a0;  /* 5.06:1 on --bg — meets WCAG AA for small text */
 
   --get:    #68b1ff;   /* GET method + primary blue */
   --post:   #7df3ae;   /* POST method + success */
@@ -24,8 +24,8 @@
   --json-string: #7df3ae;
   --json-number: #ffb454;
   --json-bool:   #c8a6ff;
-  --json-null:   #6a7590;
-  --json-punct:  #6a7590;
+  --json-null:   #7682a0;
+  --json-punct:  #7682a0;
 
   --sans:    'Inter', system-ui, -apple-system, sans-serif;
   --serif:   'Instrument Serif', 'Times New Roman', serif;
