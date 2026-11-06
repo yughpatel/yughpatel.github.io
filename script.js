@@ -130,7 +130,7 @@ const SKILLS = [
   {
     title: 'Backend & Data',
     color: '#7df3ae',
-    items: ['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'SQLite', 'JWT Authentication', 'Pydantic'],
+    items: ['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'JWT Authentication', 'Pydantic'],
   },
   {
     title: 'AI & APIs',
@@ -140,13 +140,7 @@ const SKILLS = [
   {
     title: 'Tools & Platforms',
     color: '#68d8ff',
-    items: ['Git', 'GitHub', 'Linux', 'Netlify', 'Vercel'],
-  },
-  {
-    title: 'Foundations',
-    color: '#ffb454',
-    items: ['Networking Fundamentals', 'Cybersecurity Fundamentals'],
-    note: 'Cybersecurity is an interest area I am building toward — not yet demonstrated professional expertise.',
+    items: ['Git', 'GitHub'],
   },
 ];
 
