@@ -235,15 +235,16 @@ function initTerminal() {
   let charIdx = 0;
   let current = '';
 
+  let stopped = false;
+  function toShell() {
+    if (stopped) return;
+    stopped = true;
+    startShell(body);
+  }
   function tick() {
+    if (stopped) return;
     if (step >= TERM_STEPS.length) {
-      // Loop after pause
-      setTimeout(() => {
-        body.innerHTML = '';
-        body.appendChild(cursor);
-        step = 0; charIdx = 0; current = '';
-        tick();
-      }, 3000);
+      setTimeout(toShell, 600);
       return;
     }
     const s = TERM_STEPS[step];
@@ -296,7 +297,147 @@ function initTerminal() {
       .replace(/<c>(.*?)<\/c>/g, '<span class="comment">$1</span>')
       .replace(/<alert>(.*?)<\/alert>/g, '<span class="alert">$1</span>');
   }
-  tick();
+  // Any interaction (or reduced-motion) skips the demo and hands over a real shell
+  document.getElementById('terminal').addEventListener('pointerdown', toShell, { once: true });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) toShell();
+  else tick();
+}
+
+/* ============================================================
+   INTERACTIVE SHELL (after the intro demo)
+   ============================================================ */
+function startShell(body) {
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const link = (href, label) => `<a href="${href}" target="_blank" rel="noopener" class="s">${esc(label)}</a>`;
+  const SECTIONS = ['whoami', 'direction', 'projects', 'skills', 'experience', 'credentials', 'contact'];
+  const ids = PROJECTS.map(p => p.id);
+  const findProject = id => PROJECTS.find(p => p.id === (id || '').replace(/^projects\//, '').toLowerCase());
+  const history = [];
+  let hIdx = 0;
+
+  body.innerHTML = '';
+  body.setAttribute('role', 'log');
+  const line = document.createElement('div');
+  line.className = 'term-input-line';
+  line.innerHTML = '<span class="prompt">$</span><input class="term-input" aria-label="Terminal command" spellcheck="false" autocomplete="off" autocapitalize="off">';
+  body.appendChild(line);
+  const input = line.querySelector('input');
+
+  const print = (html) => {
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    body.insertBefore(d, line);
+    body.scrollTop = body.scrollHeight;
+  };
+  print('<span class="comment"># interactive shell. type "help" or press Tab.</span>');
+
+  const cmds = {
+    help: () => [
+      '<span class="k">help</span>          this list',
+      '<span class="k">ls</span>            what is here',
+      '<span class="k">whoami</span>        the short version',
+      '<span class="k">projects</span>      list projects',
+      '<span class="k">cat</span> &lt;id&gt;      project summary',
+      '<span class="k">open</span> &lt;id&gt;     full write-up drawer',
+      '<span class="k">skills</span>        toolkit',
+      '<span class="k">experience</span>    changelog',
+      '<span class="k">credentials</span>   certifications',
+      '<span class="k">contact</span>       get in touch',
+      '<span class="k">resume</span>        open the PDF',
+      '<span class="k">goto</span> &lt;section&gt;  jump on the page',
+      '<span class="k">clear</span>         clear screen',
+    ],
+    ls: () => ['projects/  skills/  experience/  credentials/  contact  resume.pdf'],
+    whoami: () => ['Yug Patel · CS student at Nirma University · backend (FastAPI, PostgreSQL) · learning security · open to work'],
+    projects: () => PROJECTS.map(p => `<span class="s">${p.id.padEnd(11)}</span> ${esc(p.titleEm)}`),
+    cat: (a) => {
+      const p = findProject(a[0]);
+      if (!p) return [`<span class="alert">cat: ${esc(a[0] || '')}: no such project.</span> try: ${ids.join(', ')}`];
+      return [
+        `<span class="k">${esc(p.title)}</span> · ${esc(p.period)} · <span class="ok">${esc(p.statusLabel)}</span>`,
+        esc(p.desc),
+        `stack: <span class="s">${p.stack.map(esc).join(', ')}</span>`,
+        p.link ? link(p.link, p.link) : '',
+        `<span class="comment">open ${p.id} for the full write-up</span>`,
+      ];
+    },
+    open: (a) => {
+      const p = findProject(a[0]);
+      if (!p) return [`<span class="alert">open: ${esc(a[0] || '')}: no such project.</span> try: ${ids.join(', ')}`];
+      openDrawer(p);
+      return [];
+    },
+    skills: () => SKILLS.map(g => `<span class="k">${esc(g.title)}</span>: ${g.items.map(esc).join(', ')}`),
+    experience: () => EXPERIENCE.map(e => `<span class="n">${esc(e.ver)}</span> ${esc(e.title)} <span class="comment">· ${esc(e.org)}</span>`),
+    credentials: () => CREDENTIALS.map(c => `${esc(c.date.padEnd(13))} ${esc(c.title)} <span class="comment">· ${esc(c.org)}</span>`),
+    contact: () => [
+      link('mailto:yughpatel2007@gmail.com', 'yughpatel2007@gmail.com'),
+      link('https://github.com/yughpatel', 'github.com/yughpatel'),
+      link('https://linkedin.com/in/yug-patel-0536b3340', 'linkedin.com/in/yug-patel-0536b3340'),
+    ],
+    resume: () => { window.open('Yug_Patel_Resume.pdf', '_blank', 'noopener'); return ['<span class="ok">opening Yug_Patel_Resume.pdf</span>']; },
+    goto: (a) => {
+      const s = (a[0] || '').replace(/^\//, '');
+      const el = SECTIONS.includes(s) && document.getElementById(s);
+      if (!el) return [`<span class="alert">goto: unknown section.</span> try: ${SECTIONS.join(', ')}`];
+      el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      return [];
+    },
+    clear: () => { [...body.children].forEach(c => { if (c !== line) c.remove(); }); return []; },
+    exit: () => ['there is no escape from the portfolio. try <span class="k">goto contact</span>.'],
+    sudo: (a) => a.join(' ') === 'hire yug'
+      ? ['[sudo] password for recruiter: ********', '<span class="ok">✔ offer letter drafted.</span> Yug is available. run <span class="k">contact</span>.']
+      : ['<span class="alert">sudo: you are not in the sudoers file. this incident will be reported.</span>'],
+    rm: () => ['<span class="alert">rm: nice try.</span> read-only filesystem, and everything is on GitHub anyway.'],
+  };
+
+  function run(raw) {
+    print(`<span class="prompt">$</span> ${esc(raw)}`);
+    const [name, ...args] = raw.trim().split(/\s+/);
+    if (!name) return;
+    const fn = Object.prototype.hasOwnProperty.call(cmds, name) ? cmds[name] : null;
+    if (!fn) return print(`<span class="alert">${esc(name)}: command not found.</span> try <span class="k">help</span>`);
+    fn(args).forEach(l => l && print(l));
+  }
+
+  function complete() {
+    const parts = input.value.split(/\s+/);
+    const last = parts[parts.length - 1];
+    const pool = parts.length === 1 ? Object.keys(cmds)
+      : parts[0] === 'goto' ? SECTIONS
+      : (parts[0] === 'cat' || parts[0] === 'open') ? ids : [];
+    const hits = pool.filter(c => c.startsWith(last));
+    if (!hits.length) return;
+    let prefix = hits[0];
+    hits.forEach(h => { while (!h.startsWith(prefix)) prefix = prefix.slice(0, -1); });
+    parts[parts.length - 1] = prefix;
+    input.value = parts.join(' ') + (hits.length === 1 ? ' ' : '');
+    if (hits.length > 1) print(hits.join('  '));
+  }
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const v = input.value;
+      if (v.trim()) { history.push(v); hIdx = history.length; }
+      input.value = '';
+      run(v);
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      complete();
+    } else if (e.key === 'ArrowUp' && history.length) {
+      e.preventDefault();
+      hIdx = Math.max(0, hIdx - 1);
+      input.value = history[hIdx];
+    } else if (e.key === 'ArrowDown' && history.length) {
+      e.preventDefault();
+      hIdx = Math.min(history.length, hIdx + 1);
+      input.value = history[hIdx] || '';
+    } else if (e.key === 'l' && e.ctrlKey) {
+      e.preventDefault();
+      cmds.clear();
+    }
+  });
+  body.addEventListener('click', () => { if (!getSelection().toString()) input.focus({ preventScroll: true }); });
 }
 
 /* ============================================================
@@ -328,7 +469,13 @@ function renderProjects() {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </div>
     `;
+    row.tabIndex = 0;
+    row.setAttribute('role', 'button');
+    row.setAttribute('aria-label', `Open ${p.title} project details`);
     row.addEventListener('click', () => openDrawer(p));
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(p); }
+    });
     list.appendChild(row);
   });
 }
@@ -428,18 +575,25 @@ function openDrawer(p) {
       view repository
     </a>` : ''}
   `;
+  lastFocus = document.activeElement;
   scrim.classList.add('open');
   drawer.classList.add('open');
   drawer.setAttribute('aria-hidden', 'false');
+  drawer.inert = false;
   document.body.style.overflow = 'hidden';
   body.scrollTop = 0;
+  document.getElementById('drawerClose').focus();
 }
+let lastFocus = null;
 function closeDrawer() {
-  document.getElementById('scrim').classList.remove('open');
   const drawer = document.getElementById('drawer');
+  if (!drawer.classList.contains('open')) return;
+  document.getElementById('scrim').classList.remove('open');
   drawer.classList.remove('open');
   drawer.setAttribute('aria-hidden', 'true');
+  drawer.inert = true;
   document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
 }
 
 /* ============================================================
@@ -509,8 +663,10 @@ function initNav() {
   });
 
   // Mobile sidebar toggle
-  document.getElementById('sbToggle').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
+  const sbToggle = document.getElementById('sbToggle');
+  sbToggle.addEventListener('click', () => {
+    const open = document.getElementById('sidebar').classList.toggle('open');
+    sbToggle.setAttribute('aria-expanded', open);
   });
 }
 
@@ -606,5 +762,31 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('scrim').addEventListener('click', closeDrawer);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDrawer();
+  });
+});
+
+/* ============================================================
+   CONTACT FORM -> mailto (no backend; opens the visitor's mail client)
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contactForm');
+  const resp = document.getElementById('cfResp');
+  const show = (cls, status, json) => {
+    resp.replaceChildren();
+    const s = document.createElement('span'); s.className = cls; s.textContent = status;
+    resp.append(s, '\n' + json);
+  };
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bad = [...form.elements].find(el => el.name && !el.checkValidity());
+    if (bad) {
+      show('bad', 'HTTP/1.1 422 Unprocessable Entity', `{ "detail": "${bad.name}: ${bad.type === 'email' ? 'valid email' : 'value'} required" }`);
+      bad.focus();
+      return;
+    }
+    const d = Object.fromEntries(new FormData(form));
+    const body = `${d.message}\n\n-- ${d.from}`;
+    location.href = `mailto:yughpatel2007@gmail.com?subject=${encodeURIComponent(d.topic)}&body=${encodeURIComponent(body)}`;
+    show('ok', 'HTTP/1.1 202 Accepted', '{ "status": "drafted", "next": "hit send in your mail client", "reply_by": "24h" }');
   });
 });
