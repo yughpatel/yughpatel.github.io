@@ -54,14 +54,16 @@ const PROJECTS = [
   {
     id: 'ledgerlines',
     title: 'LedgerLines',
-    titleEm: 'Personal finance tracker, built from scratch.',
+    titleEm: 'The finance tracker I wanted, built from scratch.',
     period: 'Jun 2026 — Present',
     status: 'live',
     statusLabel: 'in development',
     method: 'get',
-    desc: 'Full-stack personal finance tracker that lets users log, categorize, and visualize income and expenses. Built to strengthen backend development and security skills — designed and written from scratch rather than following a tutorial.',
+    desc: 'Full-stack personal finance tracker that lets users log, categorize, and visualize income and expenses. I have used several finance trackers and each fell short somewhere, so I am building the one I wanted, from scratch, starting with the two gaps I kept hitting: analysis I could trust, and refunds.',
     stack: ['FastAPI', 'PostgreSQL', 'SQLAlchemy v2', 'Pydantic v2', 'JWT Authentication', 'Alembic', 'React', 'Tailwind CSS', 'Recharts'],
     focus: [
+      'Spending analysis that is complete and accurate, where other trackers were missing it or got it wrong',
+      'Refund handling, which many trackers do not support at all',
       'Relational database schema design',
       'Secure password handling and token-based authentication',
       'Clean API design with request/response validation',
@@ -70,7 +72,8 @@ const PROJECTS = [
     ],
     prose: [
       'LedgerLines is a full-stack personal finance tracker that lets users log, categorize, and visualize their income and expenses. It is actively in development.',
-      'The reason I am building it is to strengthen my backend development and security skills, which meant designing and writing the system from scratch rather than following a tutorial. The parts I care most about getting right are the relational schema design, secure password handling with token-based authentication, and clean API design with proper request and response validation.',
+      'I started it because I have used several finance tracker platforms and each had something off. Two gaps came up again and again: the analysis was missing or not accurate, and many had no proper way to handle refunds. Those are the two things I am building LedgerLines to get right.',
+      'It is also a deliberate way to strengthen my backend development and security skills, so I am designing and writing it from scratch rather than following a tutorial. The parts I care most about getting right are the relational schema design, secure password handling with token-based authentication, and clean API design with proper request and response validation.',
       'Backend is FastAPI with PostgreSQL, SQLAlchemy v2, Pydantic v2, JWT authentication, and Alembic for migrations. Frontend is React with Tailwind CSS and Recharts.',
     ],
   },
