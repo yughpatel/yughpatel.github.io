@@ -441,108 +441,82 @@ function startShell(body) {
 }
 
 /* ============================================================
-   PROJECTS RENDER
+   SECTION MARKUP
+   Pure string builders, shared with prerender.js, which bakes this markup
+   into index.html so the content is readable without JavaScript. The render*
+   functions below only fill a container that is still empty, then bind events.
    ============================================================ */
+const projectRowHTML = (p, i) => `
+  <div class="project-row" data-id="${p.id}" tabindex="0" role="button" aria-label="Open ${p.title} project details">
+    <div class="project-num" aria-hidden="true">P/${String(i + 1).padStart(2, '0')}</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/${p.id}</span>
+        <span class="status ${p.status}">${p.statusLabel}</span>
+      </div>
+      <h3 class="project-title">${p.title} <em>— ${p.titleEm}</em></h3>
+      <p class="project-desc">${p.desc}</p>
+      <div class="stack-row">
+        ${p.stack.slice(0, 6).map((s, idx) => `<span class="chip${idx < 3 ? ' hi' : ''}">${s}</span>`).join('')}
+        ${p.stack.length > 6 ? `<span class="chip">+${p.stack.length - 6}</span>` : ''}
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div>`;
+
+const skillGroupHTML = (g) => `
+  <div class="skill-group" style="--sg-color:${g.color}">
+    <div class="sg-header">
+      <div class="sg-title">${g.title}</div>
+      <div class="sg-count">${g.items.length}</div>
+    </div>
+    <div class="sg-items">
+      ${g.items.map(it => `<span class="sg-item">${it}</span>`).join('')}
+    </div>
+    ${g.note ? `<p class="sg-note">${g.note}</p>` : ''}
+  </div>`;
+
+const changeEntryHTML = (e) => `
+  <div class="change-entry${e.live ? ' live' : ''}">
+    <div class="change-tag">
+      <span class="ver">${e.ver}</span>
+      <span class="type">${e.type}</span>
+      <span style="color:var(--text-mute)">· ${e.date}</span>
+    </div>
+    <div class="change-title">${e.title}</div>
+    <div class="change-org">${e.org}</div>
+    <p class="change-desc">${e.desc}</p>
+  </div>`;
+
+const credRowHTML = (c, i) => `
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/${String(i + 1).padStart(2, '0')}</div>
+    <div class="cred-title">${c.title}</div>
+    <div class="cred-org">${c.org}</div>
+    <div class="cred-date">${c.date}</div>
+  </div>`;
+
+function fillIfEmpty(id, items, html) {
+  const el = document.getElementById(id);
+  if (!el.children.length) el.innerHTML = items.map(html).join('');
+  return el;
+}
+
 function renderProjects() {
-  const list = document.getElementById('projectsList');
-  PROJECTS.forEach((p, i) => {
-    const num = String(i + 1).padStart(2, '0');
-    const row = document.createElement('div');
-    row.className = 'project-row';
-    row.dataset.id = p.id;
-    row.innerHTML = `
-      <div class="project-num">P/${num}</div>
-      <div class="project-main">
-        <div class="project-meta">
-          <span class="method get">GET</span>
-          <span class="endpoint">/projects/${p.id}</span>
-          <span class="status ${p.status}">${p.statusLabel}</span>
-        </div>
-        <h3 class="project-title">${p.title} <em>— ${p.titleEm}</em></h3>
-        <p class="project-desc">${p.desc}</p>
-        <div class="stack-row">
-          ${p.stack.slice(0, 6).map((s, idx) => `<span class="chip${idx < 3 ? ' hi' : ''}">${s}</span>`).join('')}
-          ${p.stack.length > 6 ? `<span class="chip">+${p.stack.length - 6}</span>` : ''}
-        </div>
-      </div>
-      <div class="project-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
-      </div>
-    `;
-    row.tabIndex = 0;
-    row.setAttribute('role', 'button');
-    row.setAttribute('aria-label', `Open ${p.title} project details`);
+  fillIfEmpty('projectsList', PROJECTS, projectRowHTML).querySelectorAll('.project-row').forEach(row => {
+    const p = PROJECTS.find(x => x.id === row.dataset.id);
     row.addEventListener('click', () => openDrawer(p));
     row.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(p); }
     });
-    list.appendChild(row);
   });
 }
-
-/* ============================================================
-   SKILLS RENDER
-   ============================================================ */
-function renderSkills() {
-  const wrap = document.getElementById('skillsGroups');
-  SKILLS.forEach((g, i) => {
-    const card = document.createElement('div');
-    card.className = 'skill-group';
-    card.style.setProperty('--sg-color', g.color);
-    card.innerHTML = `
-      <div class="sg-header">
-        <div class="sg-title">${g.title}</div>
-        <div class="sg-count">${g.items.length}</div>
-      </div>
-      <div class="sg-items">
-        ${g.items.map(it => `<span class="sg-item">${it}</span>`).join('')}
-      </div>
-      ${g.note ? `<p class="sg-note">${g.note}</p>` : ''}
-    `;
-    wrap.appendChild(card);
-  });
-}
-
-/* ============================================================
-   EXPERIENCE RENDER
-   ============================================================ */
-function renderExperience() {
-  const wrap = document.getElementById('changelog');
-  EXPERIENCE.forEach(e => {
-    const entry = document.createElement('div');
-    entry.className = 'change-entry' + (e.live ? ' live' : '');
-    entry.innerHTML = `
-      <div class="change-tag">
-        <span class="ver">${e.ver}</span>
-        <span class="type">${e.type}</span>
-        <span style="color:var(--text-mute)">· ${e.date}</span>
-      </div>
-      <div class="change-title">${e.title}</div>
-      <div class="change-org">${e.org}</div>
-      <p class="change-desc">${e.desc}</p>
-    `;
-    wrap.appendChild(entry);
-  });
-}
-
-/* ============================================================
-   CREDENTIALS RENDER
-   ============================================================ */
-function renderCreds() {
-  const wrap = document.getElementById('credsBody');
-  CREDENTIALS.forEach((c, i) => {
-    const num = String(i + 1).padStart(2, '0');
-    const row = document.createElement('div');
-    row.className = 'cred-row';
-    row.innerHTML = `
-      <div class="cred-num">C/${num}</div>
-      <div class="cred-title">${c.title}</div>
-      <div class="cred-org">${c.org}</div>
-      <div class="cred-date">${c.date}</div>
-    `;
-    wrap.appendChild(row);
-  });
-}
+const renderSkills = () => fillIfEmpty('skillsGroups', SKILLS, skillGroupHTML);
+const renderExperience = () => fillIfEmpty('changelog', EXPERIENCE, changeEntryHTML);
+const renderCreds = () => fillIfEmpty('credsBody', CREDENTIALS, credRowHTML);
 
 /* ============================================================
    DRAWER
@@ -571,7 +545,7 @@ function openDrawer(p) {
     <div class="drawer-stack">${p.stack.map(s => `<span class="chip hi">${s}</span>`).join('')}</div>
 
     ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener" class="drawer-link">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7.07-7.07L11.5 5.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007.07 7.07l1.66-1.66"/></svg>
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7.07-7.07L11.5 5.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007.07 7.07l1.66-1.66"/></svg>
       view repository
     </a>` : ''}
   `;
@@ -674,6 +648,7 @@ function initNav() {
    REVEAL + COUNTERS
    ============================================================ */
 function initReveal() {
+  document.querySelectorAll('[data-counter] .c').forEach(c => { c.textContent = '0'; });
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (en.isIntersecting) {

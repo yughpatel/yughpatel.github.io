@@ -37,22 +37,22 @@
 <!-- Top status bar -->
 <div class="status-bar" id="statusBar">
   <div class="left">
-    <span><span class="dot"></span>system <span class="ok">operational</span></span>
-    <span class="sep desktop-only">·</span>
+    <span><span aria-hidden="true" class="dot"></span>system <span class="ok">operational</span></span>
+    <span aria-hidden="true" class="sep desktop-only">·</span>
     <span class="desktop-only">yug@dev :: portfolio.v3</span>
-    <span class="sep desktop-only">·</span>
+    <span aria-hidden="true" class="sep desktop-only">·</span>
     <span class="desktop-only">B.Tech CSE · Nirma University</span>
   </div>
   <div class="right">
     <span class="desktop-only">Ahmedabad, India</span>
-    <span class="sep desktop-only">·</span>
-    <span class="clock" id="clock">--:--:--</span>
+    <span aria-hidden="true" class="sep desktop-only">·</span>
+    <span class="clock" id="clock">IST</span>
   </div>
 </div>
 
 <!-- Mobile toggle -->
 <button class="sb-toggle" id="sbToggle" aria-label="Menu" aria-expanded="false" aria-controls="sidebar">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
 </button>
 
 <div class="app">
@@ -62,7 +62,7 @@
        ============================================================ -->
   <aside class="sidebar" id="sidebar">
     <div class="sb-brand">
-      <div class="sb-avatar">Y</div>
+      <div class="sb-avatar" aria-hidden="true">Y</div>
       <div class="sb-brand-text">
         <div class="sb-name">Yug Patel</div>
         <div class="sb-handle">backend dev · @yughpatel</div>
@@ -80,14 +80,14 @@
       <div class="sb-section-label">endpoints</div>
       <ul class="sb-nav" id="sbNav">
         <li class="sb-indicator" id="sbIndicator" aria-hidden="true"></li>
-        <li><a href="#root" data-target="root"><span class="method get">GET</span><span class="path">/</span></a></li>
-        <li><a href="#whoami" data-target="whoami"><span class="method get">GET</span><span class="path">/whoami</span></a></li>
-        <li><a href="#direction" data-target="direction"><span class="method put">WIP</span><span class="path">/direction</span></a></li>
-        <li><a href="#projects" data-target="projects"><span class="method get">GET</span><span class="path">/projects</span></a></li>
-        <li><a href="#skills" data-target="skills"><span class="method get">GET</span><span class="path">/skills</span></a></li>
-        <li><a href="#experience" data-target="experience"><span class="method get">GET</span><span class="path">/experience</span></a></li>
-        <li><a href="#credentials" data-target="credentials"><span class="method get">GET</span><span class="path">/credentials</span></a></li>
-        <li><a href="#contact" data-target="contact"><span class="method post">POST</span><span class="path">/contact</span></a></li>
+        <li><a href="#root" data-target="root"><span aria-hidden="true" class="method get">GET</span><span class="path">/</span></a></li>
+        <li><a href="#whoami" data-target="whoami"><span aria-hidden="true" class="method get">GET</span><span class="path">/whoami</span></a></li>
+        <li><a href="#direction" data-target="direction"><span aria-hidden="true" class="method put">WIP</span><span class="path">/direction</span></a></li>
+        <li><a href="#projects" data-target="projects"><span aria-hidden="true" class="method get">GET</span><span class="path">/projects</span></a></li>
+        <li><a href="#skills" data-target="skills"><span aria-hidden="true" class="method get">GET</span><span class="path">/skills</span></a></li>
+        <li><a href="#experience" data-target="experience"><span aria-hidden="true" class="method get">GET</span><span class="path">/experience</span></a></li>
+        <li><a href="#credentials" data-target="credentials"><span aria-hidden="true" class="method get">GET</span><span class="path">/credentials</span></a></li>
+        <li><a href="#contact" data-target="contact"><span aria-hidden="true" class="method post">POST</span><span class="path">/contact</span></a></li>
       </ul>
     </div>
 
@@ -95,7 +95,7 @@
       <div class="kv"><span>semester</span><span class="v">3rd</span></div>
       <div class="kv"><span>graduating</span><span class="v">2029</span></div>
       <div class="kv"><span>merged PRs</span><span class="v" style="color:var(--post)">6</span></div>
-      <div class="kv"><span>at nirma</span><span class="v" id="uptime">--</span></div>
+      <div class="kv"><span>at nirma</span><span class="v" id="uptime">since 2025</span></div>
       <div class="kv"><span>coffee/day</span><span class="v">∞</span></div>
     </div>
   </aside>
@@ -119,15 +119,15 @@
           <p class="hero-tagline">CS student at Nirma University. I build backend systems from scratch because using a tool and understanding it are different things.</p>
           <div class="hero-cta">
             <a href="#projects" class="btn primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               browse projects
             </a>
             <a href="Yug_Patel_Resume.pdf" download class="btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
               download resume
             </a>
             <a href="#contact" class="btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
               send message
             </a>
           </div>
@@ -157,15 +157,15 @@
         </div>
         <div class="strip-cell">
           <div class="strip-k">projects</div>
-          <div class="strip-v" data-counter="5"><span class="c">0</span><span class="u">built</span></div>
+          <div class="strip-v" data-counter="5"><span class="c">5</span><span class="u">built</span></div>
         </div>
         <div class="strip-cell">
           <div class="strip-k">merged PRs</div>
-          <div class="strip-v" data-counter="6"><span class="c">0</span><span class="u">GSSoC'26</span></div>
+          <div class="strip-v" data-counter="6"><span class="c">6</span><span class="u">GSSoC'26</span></div>
         </div>
         <div class="strip-cell">
           <div class="strip-k">semester</div>
-          <div class="strip-v" data-counter="3"><span class="c">0</span><span class="u">of 8</span></div>
+          <div class="strip-v" data-counter="3"><span class="c">3</span><span class="u">of 8</span></div>
         </div>
       </div>
     </section>
@@ -173,11 +173,11 @@
     <!-- WHOAMI -->
     <section class="endpoint" id="whoami">
       <div class="ep-header reveal">
-        <span class="method get">GET</span>
+        <span aria-hidden="true" class="method get">GET</span>
         <span class="path"><span class="p1">/api/v1</span>/whoami</span>
-        <span class="ep-status">200 OK · 12ms</span>
+        <span class="ep-status">200 OK</span>
       </div>
-      <h2 class="ep-title reveal d1">The person <em>behind</em> the code<span class="accent-dot"></span></h2>
+      <h2 class="ep-title reveal d1">The person <em>behind</em> the code<span aria-hidden="true" class="accent-dot"></span></h2>
       
 
       <div class="two-col">
@@ -245,11 +245,11 @@
     <!-- DIRECTION -->
     <section class="endpoint" id="direction">
       <div class="ep-header reveal">
-        <span class="method put">WIP</span>
+        <span aria-hidden="true" class="method put">WIP</span>
         <span class="path"><span class="p1">/api/v1</span>/direction</span>
         <span class="ep-status">in progress</span>
       </div>
-      <h2 class="ep-title reveal d1">Where I'm <em>heading</em><span class="accent-dot"></span></h2>
+      <h2 class="ep-title reveal d1">Where I'm <em>heading</em><span aria-hidden="true" class="accent-dot"></span></h2>
       <p class="ep-desc reveal d2">I'd rather be accurate than impressive here. My career direction is moving toward cybersecurity, but I haven't started dedicated security work yet — so this section is about the gap between where I am and where I'm going, not a claim to expertise.</p>
 
       <div class="sec-grid reveal d3">
@@ -312,46 +312,221 @@
     <!-- PROJECTS -->
     <section class="endpoint" id="projects">
       <div class="ep-header reveal">
-        <span class="method get">GET</span>
+        <span aria-hidden="true" class="method get">GET</span>
         <span class="path"><span class="p1">/api/v1</span>/projects</span>
         <span class="ep-status">200 OK · returned 5</span>
       </div>
-      <h2 class="ep-title reveal d1">What I've <em>actually built</em><span class="accent-dot"></span></h2>
+      <h2 class="ep-title reveal d1">What I've <em>actually built</em><span aria-hidden="true" class="accent-dot"></span></h2>
       <p class="ep-desc reveal d2">Five projects — coursework, a community platform, a team hackathon build, and one I'm writing from scratch. Tap any row for the full write-up, including what's still unfinished.</p>
 
-      <div class="projects-list reveal d3" id="projectsList"></div>
+      <div class="projects-list reveal d3" id="projectsList"><!--pr:projects-->
+  <div class="project-row" data-id="netguard" tabindex="0" role="button" aria-label="Open NetGuard project details">
+    <div class="project-num" aria-hidden="true">P/01</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/netguard</span>
+        <span class="status live">coursework · being refined</span>
+      </div>
+      <h3 class="project-title">NetGuard <em>— ML-based network intrusion detection.</em></h3>
+      <p class="project-desc">University coursework project. A K-Nearest Neighbors model that classifies network traffic as "Normal" or "Attack" using the NSL-KDD dataset, based on features such as duration, protocol, and byte count.</p>
+      <div class="stack-row">
+        <span class="chip hi">Python</span><span class="chip hi">Scikit-learn</span>
+        
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div>
+  <div class="project-row" data-id="traceback" tabindex="0" role="button" aria-label="Open TraceBack project details">
+    <div class="project-num" aria-hidden="true">P/02</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/traceback</span>
+        <span class="status done">shipped</span>
+      </div>
+      <h3 class="project-title">TraceBack <em>— The same model, pointed at server logs.</em></h3>
+      <p class="project-desc">Takes the same KNN model built for NetGuard and applies it to a different problem: server log analysis, flagging entries associated with brute-force attempts, SQL injection, and XSS patterns.</p>
+      <div class="stack-row">
+        <span class="chip hi">Python</span><span class="chip hi">Scikit-learn</span><span class="chip hi">Streamlit</span>
+        
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div>
+  <div class="project-row" data-id="ledgerlines" tabindex="0" role="button" aria-label="Open LedgerLines project details">
+    <div class="project-num" aria-hidden="true">P/03</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/ledgerlines</span>
+        <span class="status live">in development</span>
+      </div>
+      <h3 class="project-title">LedgerLines <em>— Personal finance tracker, built from scratch.</em></h3>
+      <p class="project-desc">Full-stack personal finance tracker that lets users log, categorize, and visualize income and expenses. Built to strengthen backend development and security skills — designed and written from scratch rather than following a tutorial.</p>
+      <div class="stack-row">
+        <span class="chip hi">FastAPI</span><span class="chip hi">PostgreSQL</span><span class="chip hi">SQLAlchemy v2</span><span class="chip">Pydantic v2</span><span class="chip">JWT Authentication</span><span class="chip">Alembic</span>
+        <span class="chip">+3</span>
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div>
+  <div class="project-row" data-id="samarpan" tabindex="0" role="button" aria-label="Open Samarpan project details">
+    <div class="project-num" aria-hidden="true">P/04</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/samarpan</span>
+        <span class="status live">in development</span>
+      </div>
+      <h3 class="project-title">Samarpan <em>— Digitizing a community organization.</em></h3>
+      <p class="project-desc">Web platform for Samarpan Kuwait, a community organization, to digitize community operations — replacing paper-based membership forms and record-keeping. My contribution is the frontend architecture.</p>
+      <div class="stack-row">
+        <span class="chip hi">HTML</span><span class="chip hi">CSS</span><span class="chip hi">JavaScript</span>
+        
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div>
+  <div class="project-row" data-id="transitops" tabindex="0" role="button" aria-label="Open TransitOps project details">
+    <div class="project-num" aria-hidden="true">P/05</div>
+    <div class="project-main">
+      <div class="project-meta">
+        <span class="method get" aria-hidden="true">GET</span>
+        <span class="endpoint">/projects/transitops</span>
+        <span class="status done">team hackathon</span>
+      </div>
+      <h3 class="project-title">TransitOps <em>— Team hackathon build.</em></h3>
+      <p class="project-desc">Built as part of a team hackathon — a full-stack platform for fleet deployment, vehicle compliance, driver registries, and logistics management. This was team work, not a solo project.</p>
+      <div class="stack-row">
+        <span class="chip hi">React 18 (Vite)</span><span class="chip hi">TypeScript</span><span class="chip hi">Tailwind CSS</span><span class="chip">Framer Motion</span><span class="chip">Node.js</span><span class="chip">Express</span>
+        
+      </div>
+    </div>
+    <div class="project-arrow">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+    </div>
+  </div><!--/pr:projects--></div>
     </section>
 
     <!-- SKILLS -->
     <section class="endpoint" id="skills">
       <div class="ep-header reveal">
-        <span class="method get">GET</span>
+        <span aria-hidden="true" class="method get">GET</span>
         <span class="path"><span class="p1">/api/v1</span>/skills</span>
         <span class="ep-status">200 OK · grouped</span>
       </div>
       <h2 class="ep-title reveal d1">The <em>toolkit</em></h2>
       <p class="ep-desc reveal d2">What I can actually work with and explain. No proficiency bars — a percentage next to a language name doesn't mean anything. If something isn't listed here, I haven't used it enough to claim it.</p>
 
-      <div class="skills-groups reveal d3" id="skillsGroups"></div>
+      <div class="skills-groups reveal d3" id="skillsGroups"><!--pr:skills-->
+  <div class="skill-group" style="--sg-color:#68b1ff">
+    <div class="sg-header">
+      <div class="sg-title">Languages & Frameworks</div>
+      <div class="sg-count">3</div>
+    </div>
+    <div class="sg-items">
+      <span class="sg-item">Python</span><span class="sg-item">JavaScript</span><span class="sg-item">HTML/CSS</span>
+    </div>
+    
+  </div>
+  <div class="skill-group" style="--sg-color:#7df3ae">
+    <div class="sg-header">
+      <div class="sg-title">Backend & Data</div>
+      <div class="sg-count">5</div>
+    </div>
+    <div class="sg-items">
+      <span class="sg-item">FastAPI</span><span class="sg-item">SQLAlchemy</span><span class="sg-item">PostgreSQL</span><span class="sg-item">JWT Authentication</span><span class="sg-item">Pydantic</span>
+    </div>
+    
+  </div>
+  <div class="skill-group" style="--sg-color:#c8a6ff">
+    <div class="sg-header">
+      <div class="sg-title">AI & APIs</div>
+      <div class="sg-count">1</div>
+    </div>
+    <div class="sg-items">
+      <span class="sg-item">Prompt Engineering</span>
+    </div>
+    
+  </div>
+  <div class="skill-group" style="--sg-color:#68d8ff">
+    <div class="sg-header">
+      <div class="sg-title">Tools & Platforms</div>
+      <div class="sg-count">2</div>
+    </div>
+    <div class="sg-items">
+      <span class="sg-item">Git</span><span class="sg-item">GitHub</span>
+    </div>
+    
+  </div><!--/pr:skills--></div>
     </section>
 
     <!-- EXPERIENCE -->
     <section class="endpoint" id="experience">
       <div class="ep-header reveal">
-        <span class="method get">GET</span>
+        <span aria-hidden="true" class="method get">GET</span>
         <span class="path"><span class="p1">/api/v1</span>/experience</span>
         <span class="ep-status">200 OK · sorted desc</span>
       </div>
-      <h2 class="ep-title reveal d1">The <em>changelog</em><span class="accent-dot"></span></h2>
+      <h2 class="ep-title reveal d1">The <em>changelog</em><span aria-hidden="true" class="accent-dot"></span></h2>
       <p class="ep-desc reveal d2">Version history of the person, in reverse chronological order. Each entry is one meaningful release.</p>
 
-      <div class="changelog reveal d3" id="changelog"></div>
+      <div class="changelog reveal d3" id="changelog"><!--pr:changelog-->
+  <div class="change-entry live">
+    <div class="change-tag">
+      <span class="ver">v2026.05</span>
+      <span class="type">contribution</span>
+      <span style="color:var(--text-mute)">· May 2026 → Present</span>
+    </div>
+    <div class="change-title">Open Source Contributor — GSSoC'26</div>
+    <div class="change-org">GirlScript Summer of Code · Remote</div>
+    <p class="change-desc">Six merged pull requests across four repositories — mostly bug fixes, plus one feature integration. Integrated a Budget Tracker into an existing project catalog and fixed the related modal rendering and mobile filter bugs (python-mini-project). Added structured JSON logging middleware to a FastAPI backend (PDF-Assistant-RAG).</p>
+  </div>
+  <div class="change-entry">
+    <div class="change-tag">
+      <span class="ver">v2025.07</span>
+      <span class="type">education</span>
+      <span style="color:var(--text-mute)">· 2025 → 2029 · currently 3rd semester</span>
+    </div>
+    <div class="change-title">B.Tech, Computer Science & Engineering</div>
+    <div class="change-org">Nirma University · Ahmedabad</div>
+    <p class="change-desc">Currently in my third semester. Alongside coursework I work on backend projects to get practical experience with things a syllabus does not cover in depth — schema design, authentication, and API structure.</p>
+  </div>
+  <div class="change-entry">
+    <div class="change-tag">
+      <span class="ver">v2023.05</span>
+      <span class="type">leadership</span>
+      <span style="color:var(--text-mute)">· May 2023 → Dec 2024</span>
+    </div>
+    <div class="change-title">Lead Photographer</div>
+    <div class="change-org">Fahaheel Al-Watanieh Indian Private School (DPS Kuwait)</div>
+    <p class="change-desc">Captured 20+ school events including major functions. Led event photography planning and execution, managed a student team for coverage and post-processing, and coordinated visual output with organizers and faculty.</p>
+  </div>
+  <div class="change-entry">
+    <div class="change-tag">
+      <span class="ver">v2020.11</span>
+      <span class="type">sport</span>
+      <span style="color:var(--text-mute)">· Nov 2020 → Nov 2025</span>
+    </div>
+    <div class="change-title">Cricketer — Kuwait U19 (national level)</div>
+    <div class="change-org">Kuwait Cricket Club · On-site</div>
+    <p class="change-desc">Played U19 cricket for Kuwait for roughly five years at national level. Started as a bowler, grew into a more versatile player, and batted when the team needed it. The tours taught discipline, tactical awareness, and the ability to perform under pressure — directly transferable to technical work.</p>
+  </div><!--/pr:changelog--></div>
     </section>
 
     <!-- CREDENTIALS -->
     <section class="endpoint" id="credentials">
       <div class="ep-header reveal">
-        <span class="method get">GET</span>
+        <span aria-hidden="true" class="method get">GET</span>
         <span class="path"><span class="p1">/api/v1</span>/credentials</span>
         <span class="ep-status">200 OK · 5 items</span>
       </div>
@@ -365,60 +540,90 @@
           <span>issuer</span>
           <span style="text-align:right;">date</span>
         </div>
-        <div id="credsBody"></div>
+        <div id="credsBody"><!--pr:creds-->
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/01</div>
+    <div class="cred-title">CS50x: Introduction to Computer Science</div>
+    <div class="cred-org">Harvard University</div>
+    <div class="cred-date">Jan 2026</div>
+  </div>
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/02</div>
+    <div class="cred-title">Startup School: Prompt to Prototype</div>
+    <div class="cred-org">Google for Startups</div>
+    <div class="cred-date">Nov–Dec 2025</div>
+  </div>
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/03</div>
+    <div class="cred-title">Generative AI Foundations Certificate</div>
+    <div class="cred-org">Microsoft, via UpGrad</div>
+    <div class="cred-date">Oct 2025</div>
+  </div>
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/04</div>
+    <div class="cred-title">Programming with Python Certification</div>
+    <div class="cred-org">Internshala Trainings</div>
+    <div class="cred-date">Jun 2025</div>
+  </div>
+  <div class="cred-row">
+    <div class="cred-num" aria-hidden="true">C/05</div>
+    <div class="cred-title">Coding Essentials: Logic Building for Beginners</div>
+    <div class="cred-org">Scaler Topics</div>
+    <div class="cred-date">Jun 2025</div>
+  </div><!--/pr:creds--></div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section class="endpoint" id="contact">
       <div class="ep-header reveal">
-        <span class="method post">POST</span>
+        <span aria-hidden="true" class="method post">POST</span>
         <span class="path"><span class="p1">/api/v1</span>/contact</span>
         <span class="ep-status">202 accepted</span>
       </div>
-      <h2 class="ep-title reveal d1">Send a <em>message</em><span class="accent-dot"></span></h2>
+      <h2 class="ep-title reveal d1">Send a <em>message</em><span aria-hidden="true" class="accent-dot"></span></h2>
       <p class="ep-desc reveal d2">Open to backend development opportunities, internships, and interesting projects. Happy to talk about anything I've built here — including the parts that aren't finished.</p>
 
       <div class="contact-block">
         <div class="contact-links reveal d3">
           <a class="c-link" href="Yug_Patel_Resume.pdf" download data-m="pdf">
-            <span class="m">PDF</span>
+            <span class="m" aria-hidden="true">PDF</span>
             <div>
               <div class="l">Resume · one-pager</div>
               <div class="v">Yug_Patel_Resume.pdf</div>
             </div>
             <span class="arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
             </span>
           </a>
           <a class="c-link" href="mailto:yughpatel2007@gmail.com" data-m="mail">
-            <span class="m">MAIL</span>
+            <span class="m" aria-hidden="true">MAIL</span>
             <div>
               <div class="l">Primary email</div>
               <div class="v">yughpatel2007@gmail.com</div>
             </div>
             <span class="arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
             </span>
           </a>
           <a class="c-link" href="https://github.com/yughpatel" target="_blank" rel="noopener" data-m="git">
-            <span class="m">GIT</span>
+            <span class="m" aria-hidden="true">GIT</span>
             <div>
               <div class="l">GitHub</div>
               <div class="v">github.com/yughpatel</div>
             </div>
             <span class="arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
             </span>
           </a>
           <a class="c-link" href="https://linkedin.com/in/yug-patel-0536b3340" target="_blank" rel="noopener" data-m="link">
-            <span class="m">LINK</span>
+            <span class="m" aria-hidden="true">LINK</span>
             <div>
               <div class="l">LinkedIn</div>
               <div class="v">yug-patel-0536b3340</div>
             </div>
             <span class="arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
             </span>
           </a>
         </div>
@@ -444,7 +649,7 @@
 
     <footer class="footer">
       <div>
-        <div>© <span id="year"></span> · <span class="grad">Yug Patel</span></div>
+        <div>© <span id="year">2026</span> · <span class="grad">Yug Patel</span></div>
         <div style="margin-top:6px; color: var(--text-mute)">B.Tech CSE · Nirma University · Ahmedabad</div>
       </div>
       <div>
@@ -460,12 +665,12 @@
 <aside class="drawer" id="drawer" inert role="dialog" aria-modal="true" aria-label="Project details" aria-hidden="true">
   <div class="drawer-head">
     <div class="drawer-head-left">
-      <span class="method get">GET</span>
+      <span aria-hidden="true" class="method get">GET</span>
       <span class="endpoint" id="drawerEndpoint">/projects/</span>
       <span class="ep-status">200 OK</span>
     </div>
     <button class="drawer-close" id="drawerClose" aria-label="Close">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
   </div>
   <div class="drawer-body" id="drawerBody"></div>
